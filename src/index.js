@@ -4,3 +4,8 @@ import "./style.css";
 
 createLayout();
 header();
+
+const button = document.getElementById("portfolioButton");
+button.addEventListener("click", function () {
+	console.log("clicked");
+});
