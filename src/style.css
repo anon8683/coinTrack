@@ -44,6 +44,8 @@ header {
 	justify-content: space-between;
 	padding: 10px;
 	padding-top: 20px;
+	border: 1px solid black;
+	border-top: none;
 }
 .joined,
 .flex-left,
@@ -75,13 +77,31 @@ h3 {
 	letter-spacing: 1.2px;
 }
 
+h4 {
+	font-size: smaller;
+}
+
+a {
+	text-decoration: none;
+	color: rgba(255, 255, 255, 0.799);
+}
+
+a:hover {
+	text-decoration: underline;
+	color: orange;
+}
+
+#navRight {
+	/* padding-right: 30px; */
+}
+
 .navButton {
 	width: clamp(100px, 15vw, 150px);
 	height: 30px;
 	border-radius: 15px;
 	font-size: 0.9rem;
 	font-weight: 600;
-	color: rgb(255, 255, 255);
+	color: rgb(0, 0, 0);
 	border: 1px solid rgba(0, 0, 0, 0.461);
 	background-color: grey;
 }
@@ -90,6 +110,7 @@ h3 {
 	border: 1px solid orange;
 	cursor: pointer;
 	background-color: rgba(0, 0, 0, 0.495);
+	color: rgba(255, 255, 255, 0.799);
 	scale: 1.01;
 	transition: 0.5s;
 }

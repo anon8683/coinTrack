@@ -1,6 +1,6 @@
 function header() {
 	const header = document.getElementsByTagName("header")[0];
-	header.innerHTML = `<div id="header-flex">
+	header.innerHTML = `	<div id="header-flex">
 	<div class="joined">
 		<div class="flex-left">
 			<img id="logo" src="/repos/coinTrack/src/img/logo.svg" alt="#" />
@@ -12,7 +12,10 @@ function header() {
 			<button id="newsButton" class="navButton">News</button>
 		</div>
 	</div>
-	<h4>flex right</h4>
+	<div class="joined" id="navRight">
+		<h4><a href="#">Sign up</a></h4>
+		<h4><a href="#">Login</a></h4>
+	</div>
 </div>
 	`;
 }
