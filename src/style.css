@@ -178,3 +178,59 @@ main {
 		grid-template-columns: 1fr;
 	}
 }
+.form-container {
+	display: flex;
+	width: 250px;
+	height: 350px;
+	flex-direction: column;
+	justify-content: center;
+	position: absolute;
+	gap: 10px;
+	align-items: center;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: auto;
+	margin-bottom: auto;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	text-align: center;
+	background-color: var(--lSand);
+	padding: 25px;
+	border-radius: 5px;
+	border: 2px solid rgb(8, 12, 7);
+	background-size: cover;
+	background-color: antiquewhite;
+	box-shadow: 5px 5px 15px 5px #000000;
+	padding-bottom: 45px;
+}
+
+#form {
+	position: fixed; /* Sit on top of the page content */
+	display: flex; /* Hidden by default */
+	width: 100%; /* Full width (cover the whole page) */
+	height: 100%; /* Full height (cover the whole page) */
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.85); /* Black background with opacity */
+	z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+}
+
+#closed {
+	position: relative;
+	top: -75px;
+	left: 105px;
+	right: 0;
+	bottom: 0px;
+	height: 25px;
+	border: 1px solid black;
+	border-radius: 0px;
+	padding-top: 2px;
+	font-weight: 600;
+	border-radius: 20px;
+	background-color: rgb(241, 170, 170);
+	scale: 1.15;
+}

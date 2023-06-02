@@ -1,6 +1,6 @@
 function main() {
 	const main = document.getElementsByTagName("main")[0];
-	main.innerHTML = `<div>left hand stuff</div>
+	main.innerHTML = `					<div>left hand stuff</div>
     <div class="portfolioSide">
         <div class="mainTop">
             <div class="topLeftSide">
@@ -10,6 +10,8 @@ function main() {
             </div>
             <button id="addHoldingButton">+</button>
         </div>
+        <div id="holdingsTable"></div>
+
     </div>`;
 }
 
