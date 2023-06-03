@@ -11,7 +11,7 @@ header(); // adds header
 main();
 
 window.holdings = [];
-
+window.total = 0;
 document.getElementById("addHoldingButton").addEventListener("click", (e) => {
 	addHoldingPopup();
 });

@@ -1,5 +1,6 @@
 import closeform from "./closeform";
 import table from "./table";
+import card from "./addCard";
 
 function addHoldingPopup() {
 	const content = document.getElementsByClassName("portfolioSide")[0];
@@ -43,8 +44,9 @@ function addHoldingPopup() {
 	});
 
 	document.getElementById("submit").addEventListener("click", (e) => {
-		table();
 		holdings.push(table());
+
+		card();
 		closeform();
 	});
 }

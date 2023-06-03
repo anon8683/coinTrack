@@ -4,13 +4,13 @@ function main() {
     <div class="portfolioSide">
         <div class="mainTop">
             <div class="topLeftSide">
-                <h1 id="totalValue">$5,234.23</h1>
+                <h1 id="totalValue">$0</h1>
                 <div id="trendingTriangle">▲</div>
                 <h4 id="trendAmount">$252.20 (0.25%)</h4>
             </div>
             <button id="addHoldingButton">+</button>
         </div>
-        <div id="holdingsTable"></div>
+        
 
     </div>`;
 }
