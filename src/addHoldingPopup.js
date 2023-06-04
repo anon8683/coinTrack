@@ -34,7 +34,7 @@ function addHoldingPopup() {
         />
       </div>
       <button type="button" class="btn" id="submit">
-        Add book
+        Add coin
       </button>
     </form>
   </div>`;

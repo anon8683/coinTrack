@@ -4,20 +4,84 @@ function card() {
 	const totalValue = document.getElementById("totalValue");
 	const x = holdings.length - 1;
 
+	//chatGPT to get the small logo
+	async function getSmallLogoByTicker(ticker) {
+		const coinsUrl = "https://api.coingecko.com/api/v3/coins/list";
+
+		try {
+			const coinsResponse = await fetch(coinsUrl);
+
+			if (!coinsResponse.ok) {
+				throw new Error(
+					`Error ${coinsResponse.status}: ${coinsResponse.statusText}`
+				);
+			}
+
+			const coinsData = await coinsResponse.json();
+			const coin = coinsData.find(
+				(coin) => coin.symbol.toLowerCase() === ticker.toLowerCase()
+			);
+
+			if (!coin) {
+				console.log("No coin found for the given ticker");
+				return null;
+			}
+
+			const logoUrl = `https://api.coingecko.com/api/v3/coins/${coin.id}`;
+			const logoResponse = await fetch(logoUrl);
+
+			if (!logoResponse.ok) {
+				throw new Error(
+					`Error ${logoResponse.status}: ${logoResponse.statusText}`
+				);
+			}
+
+			const logoData = await logoResponse.json();
+			return logoData.image.small; // Returns the URL of the small logo
+		} catch (error) {
+			console.error("An error occurred:", error);
+			return null;
+		}
+	}
+
+	//
+
 	holdingCard.setAttribute("id", `${x}`);
 	holdingCard.setAttribute("class", "holdingCard");
 	holdingCard.innerHTML = `
-
-    
-    <div class="symbol">${holdings[x].symbol}</div>
-    <div class="value" id="value${x}"></div>
+    <div class="join">
+		<div class="symbol">${holdings[x].symbol}</div>
+		<div class="value" id="value${x}"></div>
+	</div>
     <div class="amount">${numberWithCommas(holdings[x].amount)}</div>
     <div class="pnl" id="pnl${x}"></div>
-    `;
+	<div class="price" id="price${x}"></div>
 
+	
+    `;
+	{
+		/* <div class="price" id="price${x}></div> */
+	}
 	portfolio.appendChild(holdingCard);
+
+	const ticker = `${holdings[x].symbol}`;
+
+	getSmallLogoByTicker(ticker).then((logoUrl) => {
+		if (logoUrl) {
+			console.log(logoUrl);
+			// Use the small logo URL as needed
+			const card = document.getElementById(`${x}`);
+			const logo = document.createElement("img");
+			logo.setAttribute("src", `${logoUrl}`);
+			card.prepend(logo);
+		} else {
+			console.log("No logo found for the given ticker");
+		}
+	});
+
 	const valueBox = document.getElementById(`value${x}`);
 	const pnlBox = document.getElementById(`pnl${x}`);
+	const priceBox = document.getElementById(`price${x}`);
 
 	function fetchData() {
 		fetch(
@@ -42,7 +106,16 @@ function card() {
 
 				valueBox.textContent = `$${numberWithCommas(value.toFixed(2))}`;
 				pnlBox.textContent = `$${numberWithCommas(pnl.toFixed(2))}`;
+				priceBox.textContent = `$${numberWithCommas(price)}`;
 				totalValue.textContent = `$${numberWithCommas(total.toFixed(1))}`;
+
+				if (pnl < 0) {
+					//you are negative, add loss class
+					pnlBox.setAttribute("class", "loss");
+					return;
+				}
+
+				pnlBox.setAttribute("class", "profit");
 			});
 	}
 

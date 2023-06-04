@@ -127,13 +127,14 @@ main {
 .portfolioSide {
 	display: flex;
 	flex-direction: column;
-	padding: 15px;
+	padding: 35px;
 	border-left: 1px solid orange;
 }
 .mainTop {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	padding-bottom: 20px;
 }
 
 .topLeftSide {
@@ -167,10 +168,34 @@ main {
 
 /* --------------------holdings cards---------- */
 .holdingCard {
-	height: 30px;
+	align-items: end;
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-	background-color: rgb(50, 92, 92);
+	grid-template-columns: 0.35fr 1.5fr 1fr 1fr 1fr;
+	background-color: rgb(73, 84, 84);
+	border-bottom: grey 1px solid;
+}
+
+.symbol {
+	font-size: 0.8rem;
+	opacity: 75%;
+	padding: 1px;
+}
+
+.value {
+	font-weight: bold;
+}
+
+img {
+	height: 45px;
+	padding: 5px;
+}
+
+.loss {
+	color: rgba(247, 75, 75, 0.498);
+}
+
+.profit {
+	color: rgb(107, 192, 107);
 }
 
 /* --------------------------------------------- */
@@ -189,7 +214,7 @@ main {
 .form-container {
 	display: flex;
 	width: 250px;
-	height: 350px;
+	height: 180px;
 	flex-direction: column;
 	justify-content: center;
 	position: absolute;
@@ -209,7 +234,7 @@ main {
 	border-radius: 5px;
 	border: 2px solid rgb(8, 12, 7);
 	background-size: cover;
-	background-color: antiquewhite;
+	background-color: rgb(95, 94, 92);
 	box-shadow: 5px 5px 15px 5px #000000;
 	padding-bottom: 45px;
 }
@@ -229,7 +254,7 @@ main {
 
 #closed {
 	position: relative;
-	top: -75px;
+	top: 7px;
 	left: 105px;
 	right: 0;
 	bottom: 0px;
@@ -240,5 +265,5 @@ main {
 	font-weight: 600;
 	border-radius: 20px;
 	background-color: rgb(241, 170, 170);
-	scale: 1.15;
+	scale: 0.9;
 }
