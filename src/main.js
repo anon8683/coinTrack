@@ -5,12 +5,18 @@ function main() {
         <div class="mainTop">
             <div class="topLeftSide">
                 <h1 id="totalValue">$0</h1>
-                <div id="trendingTriangle">▲</div>
-                <h4 id="trendAmount">$252.20 (0.25%)</h4>
+                <div id="trendingTriangle"></div>
+                <h4 id="trendAmount"></h4>
             </div>
             <button id="addHoldingButton">+</button>
         </div>
-        
+        <div class="dropdown">
+        <button class="button-59" role="button">Button 59</button>
+  <div class="dropdown-content">
+    <a href="#">Edit</a>
+    <a href="#">Delete</a>
+  </div>
+</div>
 
     </div>`;
 }

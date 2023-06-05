@@ -20,6 +20,14 @@ function card() {
     <div class="amount">${numberWithCommas(holdings[x].amount)}</div>
     <div class="pnl" id="pnl${x}"></div>
 	<div class="price" id="price${x}"></div>
+	<div class="dropdown">
+	<button class="button-59" role="button">Button 59</button>
+  <div class="dropdown-content">
+    <button class="editButtons ${x}" id="buttonEdit${x}">Edit</a>
+    <button class="editButtons ${x}" id="buttonDelete${x}"Yeah>Delete</a>
+  </div>
+</div>
+
 
 	
     `;
@@ -114,11 +122,14 @@ function card() {
 		const value = price * quantity; // the value of coins you hold
 		const pnl = value - holdings[x].price * quantity; // your pnl
 		total += price * quantity; //adds value to portfolio value
+		holdings[x].value = value; // adds value property to object
+		holdings[x].price_change = price_change * quantity;
+
+		displayTotalValue();
 
 		valueBox.textContent = `$${numberWithCommas(value.toFixed(1))}`;
 		pnlBox.textContent = `$${numberWithCommas(pnl.toFixed(2))}`;
 		priceBox.textContent = `$${numberWithCommas(price)}`;
-		totalValue.textContent = `$${numberWithCommas(total.toFixed(0))}`;
 
 		if (pnl < 0) {
 			//you are negative, add loss class
@@ -135,10 +146,82 @@ function card() {
 		// adjust our 24h value
 
 		yesterdayTotal += price_change * holdings[x].amount;
+		// let yesterdayA = total + yesterdayTotal;
+
+		// if (yesterdayTotal < 0) {
+		// 	//negative
+		// 	let percentage = ((total - yesterdayA) / total) * 100;
+		// 	yesterdayValue.textContent = `-$${numberWithCommas(
+		// 		yesterdayTotal.toFixed(0) * -1
+		// 	)} (${percentage.toFixed(2)}%)`;
+
+		// 	yesterdayValue.setAttribute("class", "loss");
+		// 	yesterdayTriangle.setAttribute("class", "loss");
+		// 	yesterdayTriangle.textContent = "▼";
+		// 	return;
+		// }
+
+		// if (yesterdayTotal > 0) {
+		// 	//positive
+		// 	let percentage = ((yesterdayA - total) / yesterdayA) * 100;
+		// 	yesterdayValue.textContent = `$${numberWithCommas(
+		// 		yesterdayTotal.toFixed(0)
+		// 	)} (${percentage.toFixed(2)}%)`;
+
+		// 	yesterdayValue.setAttribute("class", "profit");
+		// 	yesterdayTriangle.setAttribute("class", "profit");
+		// 	yesterdayTriangle.textContent = "▲";
+		// 	return;
+		// }
+
+		displayPriceChange();
+
+		return logoUrl; // Returns the URL of the small logo
+	}
+
+	// add event listener to our buttons when the card is added
+
+	const buttons = document.getElementsByClassName(`${x}`);
+	const btns = Array.from(buttons);
+	btns.forEach((btn) =>
+		btn.addEventListener("click", (e) => {
+			console.log(`${btn.id} got clicked`);
+
+			if (btn.id.includes("Delete")) {
+				const cardToRemove = btn.id.slice(-1);
+				removeCard(cardToRemove);
+				removeHolding(cardToRemove);
+			}
+		})
+	);
+
+	// if the delete button is clicked, remove entire card from page
+	// remove from holdings
+	// remove from variables such as total and portfolio value etc
+
+	function removeCard(cardToRemove) {
+		const card = document.getElementById(`${cardToRemove}`);
+		card.remove();
+		return;
+	}
+
+	function removeHolding(cardToRemove) {
+		total -= holdings[cardToRemove].value;
+		yesterdayTotal -= holdings[cardToRemove].price_change;
+
+		displayTotalValue();
+		displayPriceChange();
+
+		delete holdings[cardToRemove];
+	}
+
+	function displayPriceChange() {
 		let yesterdayA = total + yesterdayTotal;
-		log(total);
-		log(yesterdayTotal);
-		log(yesterdayA);
+		if (yesterdayTotal === 0) {
+			yesterdayValue.textContent = "";
+			yesterdayTriangle.textContent = "";
+			return;
+		}
 
 		if (yesterdayTotal < 0) {
 			//negative
@@ -165,45 +248,11 @@ function card() {
 			yesterdayTriangle.textContent = "▲";
 			return;
 		}
+	}
 
-		// if (yesterdayTotal < 0) {
-		// 	// you're at a loss
-		// 	let percentage = yesterdayTotal - total / yesterdayTotal;
-		// 	console.log(percentage);
-		// }
-
-		//
-
-		// yesterdayTotal += price_change * holdings[x].amount;
-		// console.log(yesterdayTotal);
-		// let yesterdayWorth = 0;
-		// let percentage = 0;
-
-		// if (yesterdayTotal < 0) {
-		// 	yesterdayValue.setAttribute("class", "loss");
-		// 	yesterdayTriangle.setAttribute("class", "loss");
-		// 	yesterdayWorth = total + yesterdayTotal * -1;
-		// 	percentage = (yesterdayWorth - total) / yesterdayWorth;
-		// 	yesterdayTriangle.textContent = "▼";
-		// 	yesterdayValue.textContent = `-$${numberWithCommas(
-		// 		yesterdayTotal.toFixed(0) * -1
-		// 	)} (${percentage.toFixed(2)}%)`;
-
-		// 	return;
-		// }
-		// yesterdayValue.setAttribute("class", "profit");
-		// yesterdayTriangle.setAttribute("class", "profit");
-
-		// yesterdayWorth = total - yesterdayTotal;
-		// percentage = total - (yesterdayWorth / total) * 100;
-		// console.log(percentage);
-
-		// yesterdayTriangle.textContent = "▲";
-		// yesterdayValue.textContent = `$${numberWithCommas(
-		// 	yesterdayTotal.toFixed(0) * -1
-		// )} (${percentage.toFixed(2)}%)`;
-
-		return logoUrl; // Returns the URL of the small logo
+	function displayTotalValue() {
+		totalValue.textContent = `$${numberWithCommas(total.toFixed(0))}`;
 	}
 }
+
 export default card;
