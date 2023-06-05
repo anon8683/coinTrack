@@ -2,47 +2,11 @@ function card() {
 	const portfolio = document.getElementsByClassName("portfolioSide")[0];
 	const holdingCard = document.createElement("div");
 	const totalValue = document.getElementById("totalValue");
+	const yesterdayValue = document.getElementById("trendAmount");
+	const yesterdayTriangle = document.getElementById("trendingTriangle");
 	const x = holdings.length - 1;
 
 	//chatGPT to get the small logo
-	async function getSmallLogoByTicker(ticker) {
-		const coinsUrl = "https://api.coingecko.com/api/v3/coins/list";
-
-		try {
-			const coinsResponse = await fetch(coinsUrl);
-
-			if (!coinsResponse.ok) {
-				throw new Error(
-					`Error ${coinsResponse.status}: ${coinsResponse.statusText}`
-				);
-			}
-
-			const coinsData = await coinsResponse.json();
-			const coin = coinsData.find(
-				(coin) => coin.symbol.toLowerCase() === ticker.toLowerCase()
-			);
-
-			if (!coin) {
-				console.log("No coin found for the given ticker");
-				return null;
-			}
-
-			const logoUrl = `https://api.coingecko.com/api/v3/coins/${coin.id}`;
-			const logoResponse = await fetch(logoUrl);
-
-			if (!logoResponse.ok) {
-				throw new Error(
-					`Error ${logoResponse.status}: ${logoResponse.statusText}`
-				);
-			}
-
-			const logoData = await logoResponse.json();
-			return logoData.image.small; // Returns the URL of the small logo
-		} catch (error) {
-			console.error("An error occurred:", error);
-			return null;
-		}
-	}
 
 	//
 
@@ -59,69 +23,16 @@ function card() {
 
 	
     `;
-	{
-		/* <div class="price" id="price${x}></div> */
-	}
+
 	portfolio.appendChild(holdingCard);
 
 	const ticker = `${holdings[x].symbol}`;
 
-	getSmallLogoByTicker(ticker).then((logoUrl) => {
-		if (logoUrl) {
-			console.log(logoUrl);
-			// Use the small logo URL as needed
-			const card = document.getElementById(`${x}`);
-			const logo = document.createElement("img");
-			logo.setAttribute("src", `${logoUrl}`);
-			card.prepend(logo);
-		} else {
-			console.log("No logo found for the given ticker");
-		}
-	});
-
+	getDataByTicker(ticker);
 	const valueBox = document.getElementById(`value${x}`);
 	const pnlBox = document.getElementById(`pnl${x}`);
 	const priceBox = document.getElementById(`price${x}`);
 
-	function fetchData() {
-		fetch(
-			`https://api.binance.com/api/v3/avgPrice?symbol=${holdings[x].symbol}USDT`
-		)
-			.then((response) => response.json())
-			.then((data) => {
-				console.log(data);
-				let price = +data.price;
-				console.log(price);
-				if (price > 5) {
-					price = price.toFixed(1);
-					console.log(price);
-				} else {
-					price = price.toFixed(4);
-					console.log(price);
-				}
-
-				const quantity = holdings[x].amount; //the amount of coins you hold
-				const value = price * quantity; // the value of coins you hold
-				const pnl = value - holdings[x].price * quantity; // your pnl
-				total += price * quantity; //adds value to portfolio value
-
-				valueBox.textContent = `$${numberWithCommas(value.toFixed(1))}`;
-				pnlBox.textContent = `$${numberWithCommas(pnl.toFixed(2))}`;
-				priceBox.textContent = `$${numberWithCommas(price)}`;
-				totalValue.textContent = `$${numberWithCommas(total.toFixed(0))}`;
-
-				if (pnl < 0) {
-					//you are negative, add loss class
-					pnlBox.setAttribute("class", "loss");
-					return;
-				}
-
-				pnlBox.setAttribute("class", "profit");
-			});
-	}
-
-	fetchData();
-	yesterdayPrices();
 	async function yesterdayPrices() {
 		const coinsUrl = "https://api.coingecko.com/api/v3/coins/list";
 
@@ -139,7 +50,8 @@ function card() {
 		)
 			.then((response) => response.json())
 			.then((data) => {
-				console.log(data.market_data.current_price.usd);
+				yesterdayTotal +=
+					data.market_data.current_price.usd * holdings[x].amount;
 				return data.market_data.current_price.usd;
 			});
 	}
@@ -166,6 +78,132 @@ function card() {
 
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
-}
 
+	async function getDataByTicker(ticker) {
+		const coinsUrl = "https://api.coingecko.com/api/v3/coins/list";
+		const coinsResponse = await fetch(coinsUrl);
+
+		const coinsData = await coinsResponse.json();
+		const coin = coinsData.find(
+			(coin) => coin.symbol.toLowerCase() === ticker.toLowerCase()
+		);
+
+		const dataUrl = `https://api.coingecko.com/api/v3/coins/${coin.id}`;
+		const dataResponse = await fetch(dataUrl);
+
+		const data = await dataResponse.json();
+
+		const logoUrl = data.image.small; //our logo
+		let price = data.market_data.current_price.usd; // current price
+		const price_change = data.market_data.price_change_24h; // prices 24 hours ago
+
+		// Use the small logo URL as needed
+		const card = document.getElementById(`${x}`);
+		const logo = document.createElement("img");
+		logo.setAttribute("src", `${logoUrl}`);
+		card.prepend(logo);
+
+		// display our price
+		if (price > 5) {
+			price = price.toFixed(1);
+		} else {
+			price = price.toFixed(4);
+		}
+
+		const quantity = holdings[x].amount; //the amount of coins you hold
+		const value = price * quantity; // the value of coins you hold
+		const pnl = value - holdings[x].price * quantity; // your pnl
+		total += price * quantity; //adds value to portfolio value
+
+		valueBox.textContent = `$${numberWithCommas(value.toFixed(1))}`;
+		pnlBox.textContent = `$${numberWithCommas(pnl.toFixed(2))}`;
+		priceBox.textContent = `$${numberWithCommas(price)}`;
+		totalValue.textContent = `$${numberWithCommas(total.toFixed(0))}`;
+
+		if (pnl < 0) {
+			//you are negative, add loss class
+			pnlBox.setAttribute("class", "loss");
+			return;
+		}
+
+		pnlBox.setAttribute("class", "profit");
+
+		console.log(logoUrl, price, price_change);
+
+		const log = console.log;
+
+		// adjust our 24h value
+
+		yesterdayTotal += price_change * holdings[x].amount;
+		let yesterdayA = total + yesterdayTotal;
+		log(total);
+		log(yesterdayTotal);
+		log(yesterdayA);
+
+		if (yesterdayTotal < 0) {
+			//negative
+			let percentage = ((total - yesterdayA) / total) * 100;
+			yesterdayValue.textContent = `-$${numberWithCommas(
+				yesterdayTotal.toFixed(0) * -1
+			)} (${percentage.toFixed(2)}%)`;
+
+			yesterdayValue.setAttribute("class", "loss");
+			yesterdayTriangle.setAttribute("class", "loss");
+			yesterdayTriangle.textContent = "▼";
+			return;
+		}
+
+		if (yesterdayTotal > 0) {
+			//positive
+			let percentage = ((yesterdayA - total) / yesterdayA) * 100;
+			yesterdayValue.textContent = `$${numberWithCommas(
+				yesterdayTotal.toFixed(0)
+			)} (${percentage.toFixed(2)}%)`;
+
+			yesterdayValue.setAttribute("class", "profit");
+			yesterdayTriangle.setAttribute("class", "profit");
+			yesterdayTriangle.textContent = "▲";
+			return;
+		}
+
+		// if (yesterdayTotal < 0) {
+		// 	// you're at a loss
+		// 	let percentage = yesterdayTotal - total / yesterdayTotal;
+		// 	console.log(percentage);
+		// }
+
+		//
+
+		// yesterdayTotal += price_change * holdings[x].amount;
+		// console.log(yesterdayTotal);
+		// let yesterdayWorth = 0;
+		// let percentage = 0;
+
+		// if (yesterdayTotal < 0) {
+		// 	yesterdayValue.setAttribute("class", "loss");
+		// 	yesterdayTriangle.setAttribute("class", "loss");
+		// 	yesterdayWorth = total + yesterdayTotal * -1;
+		// 	percentage = (yesterdayWorth - total) / yesterdayWorth;
+		// 	yesterdayTriangle.textContent = "▼";
+		// 	yesterdayValue.textContent = `-$${numberWithCommas(
+		// 		yesterdayTotal.toFixed(0) * -1
+		// 	)} (${percentage.toFixed(2)}%)`;
+
+		// 	return;
+		// }
+		// yesterdayValue.setAttribute("class", "profit");
+		// yesterdayTriangle.setAttribute("class", "profit");
+
+		// yesterdayWorth = total - yesterdayTotal;
+		// percentage = total - (yesterdayWorth / total) * 100;
+		// console.log(percentage);
+
+		// yesterdayTriangle.textContent = "▲";
+		// yesterdayValue.textContent = `$${numberWithCommas(
+		// 	yesterdayTotal.toFixed(0) * -1
+		// )} (${percentage.toFixed(2)}%)`;
+
+		return logoUrl; // Returns the URL of the small logo
+	}
+}
 export default card;
