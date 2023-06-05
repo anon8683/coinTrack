@@ -1,5 +1,7 @@
 :root {
 	--grey: rgb(56, 55, 55);
+	--lightGrey: rgba(255, 255, 255, 0.735);
+	--green: rgb(28, 130, 28);
 	--body: rgba(0, 0, 0, 0.886);
 }
 
@@ -171,8 +173,10 @@ main {
 	align-items: end;
 	display: grid;
 	grid-template-columns: 0.35fr 1.5fr 1fr 1fr 1fr;
-	background-color: rgb(73, 84, 84);
+	background-color: var(--grey);
 	border-bottom: grey 1px solid;
+	gap: 5px;
+	padding: 3px;
 }
 
 .symbol {
@@ -183,6 +187,12 @@ main {
 
 .value {
 	font-weight: bold;
+}
+
+.value,
+.amount,
+.price {
+	color: var(--lightGrey);
 }
 
 img {
@@ -209,6 +219,26 @@ img {
 @media only screen and (max-width: 766px) {
 	main {
 		grid-template-columns: 1fr;
+		display: block;
+	}
+
+	.value,
+	.amount,
+	.price,
+	.profit,
+	.symbol {
+		font-size: 0.65rem;
+	}
+
+	.portfolioSide {
+		padding: 0;
+		border: none;
+	}
+	.mainTop {
+		padding: 10px;
+	}
+
+	.holdingCard {
 	}
 }
 .form-container {
