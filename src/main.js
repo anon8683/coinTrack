@@ -10,11 +10,6 @@ function main() {
             </div>
             <button id="addHoldingButton">+</button>
         </div>
-        <div class="dropdown">
-        <button class="button-59" role="button">Button 59</button>
-  <div class="dropdown-content">
-    <a href="#">Edit</a>
-    <a href="#">Delete</a>
   </div>
 </div>
 

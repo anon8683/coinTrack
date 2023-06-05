@@ -1,11 +1,10 @@
 function card() {
+	const x = holdings.length - 1;
 	const portfolio = document.getElementsByClassName("portfolioSide")[0];
 	const holdingCard = document.createElement("div");
 	const totalValue = document.getElementById("totalValue");
 	const yesterdayValue = document.getElementById("trendAmount");
 	const yesterdayTriangle = document.getElementById("trendingTriangle");
-	const x = holdings.length - 1;
-
 	//chatGPT to get the small logo
 
 	//
@@ -21,7 +20,7 @@ function card() {
     <div class="pnl" id="pnl${x}"></div>
 	<div class="price" id="price${x}"></div>
 	<div class="dropdown">
-	<button class="button-59" role="button">Button 59</button>
+	<button class="modifyButton" >:</button>
   <div class="dropdown-content">
     <button class="editButtons ${x}" id="buttonEdit${x}">Edit</a>
     <button class="editButtons ${x}" id="buttonDelete${x}"Yeah>Delete</a>
@@ -146,33 +145,6 @@ function card() {
 		// adjust our 24h value
 
 		yesterdayTotal += price_change * holdings[x].amount;
-		// let yesterdayA = total + yesterdayTotal;
-
-		// if (yesterdayTotal < 0) {
-		// 	//negative
-		// 	let percentage = ((total - yesterdayA) / total) * 100;
-		// 	yesterdayValue.textContent = `-$${numberWithCommas(
-		// 		yesterdayTotal.toFixed(0) * -1
-		// 	)} (${percentage.toFixed(2)}%)`;
-
-		// 	yesterdayValue.setAttribute("class", "loss");
-		// 	yesterdayTriangle.setAttribute("class", "loss");
-		// 	yesterdayTriangle.textContent = "▼";
-		// 	return;
-		// }
-
-		// if (yesterdayTotal > 0) {
-		// 	//positive
-		// 	let percentage = ((yesterdayA - total) / yesterdayA) * 100;
-		// 	yesterdayValue.textContent = `$${numberWithCommas(
-		// 		yesterdayTotal.toFixed(0)
-		// 	)} (${percentage.toFixed(2)}%)`;
-
-		// 	yesterdayValue.setAttribute("class", "profit");
-		// 	yesterdayTriangle.setAttribute("class", "profit");
-		// 	yesterdayTriangle.textContent = "▲";
-		// 	return;
-		// }
 
 		displayPriceChange();
 
