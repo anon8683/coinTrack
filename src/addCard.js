@@ -37,71 +37,19 @@ function card() {
 	  </div>`;
 
 	portfolio.appendChild(holdingCard);
+
+	//get the id of the first card then make headings visible
 	checkFirstCardId();
-
-	function checkFirstCardId() {
-		//returns the id of the first card
-		// that card should have the extra headings and CSS
-
-		const children = Array.from(portfolio.children);
-		const firstCardId = children[1].id;
-
-		log(children, firstCardId);
-		return firstCardId;
-	}
-
-	function firstCardVisible() {
-		const card = document.getElementById(`heading${checkFirstCardId()}`);
-		const cards = document.querySelectorAll(`#heading${checkFirstCardId()}`);
-		console.log(cards);
-		cards.forEach((card) => card.setAttribute("class", "visible"));
-		// cards.setAttribute("class", "visible");
-	}
-
 	firstCardVisible();
+
+	//get all our data for given ticker
+
 	const ticker = `${holdings[x].symbol}`;
 	getDataByTicker(ticker);
+
 	const valueBox = document.getElementById(`value${x}`);
 	const pnlBox = document.getElementById(`pnl${x}`);
 	const priceBox = document.getElementById(`price${x}`);
-
-	async function yesterdayPrices() {
-		const coinsUrl = "https://api.coingecko.com/api/v3/coins/list";
-
-		const coinsResponse = await fetch(coinsUrl);
-
-		const coinsData = await coinsResponse.json();
-		const coin = coinsData.find(
-			(coin) => coin.symbol.toLowerCase() === ticker.toLowerCase()
-		);
-
-		fetch(
-			`https://api.coingecko.com/api/v3/coins/${
-				coin.id
-			}/history?date=${getYesterdayDate()}&localization=false`
-		)
-			.then((response) => response.json())
-			.then((data) => {
-				yesterdayTotal +=
-					data.market_data.current_price.usd * holdings[x].amount;
-				return data.market_data.current_price.usd;
-			});
-	}
-	function getYesterdayDate() {
-		// work out price 24 hours ago
-
-		let yesterday24 = Math.floor(new Date().getTime() / 1000.0) - 86400; //current time - 24 hours
-		const date = new Date(yesterday24 * 1000);
-
-		let day = date.getDate();
-		let month = date.getMonth();
-		let year = date.getFullYear();
-
-		//our formatted date for api
-		const yesterdayDate = `${day}-${month + 1}-${year}`;
-
-		return yesterdayDate;
-	}
 
 	function numberWithCommas(x) {
 		if (x < 1 && x > 0) {
@@ -252,7 +200,23 @@ function card() {
 		totalValue.textContent = `$${numberWithCommas(total.toFixed(0))}`;
 	}
 
-	function addHeadingsToSecond() {}
+	function checkFirstCardId() {
+		//returns the id of the first card
+		// that card should have the extra headings and CSS
+
+		const children = Array.from(portfolio.children);
+		const firstCardId = children[1].id;
+
+		log(children, firstCardId);
+		return firstCardId;
+	}
+
+	function firstCardVisible() {
+		//makes our headings visible on the first card
+
+		const cards = document.querySelectorAll(`#heading${checkFirstCardId()}`);
+		cards.forEach((card) => card.setAttribute("class", "visible"));
+	}
 }
 export default card;
 // const portfolio = document.getElementsByClassName("portfolioSide")[0];
