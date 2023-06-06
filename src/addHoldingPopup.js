@@ -1,6 +1,7 @@
 import closeform from "./closeform";
-import table from "./table";
 import card from "./addCard";
+import createCoin from "./table";
+import adjustStorage from "./adjustStorage";
 
 function addHoldingPopup() {
 	// const content = document.getElementsByClassName("portfolioSide")[0];
@@ -45,8 +46,8 @@ function addHoldingPopup() {
 	});
 
 	document.getElementById("submit").addEventListener("click", (e) => {
-		holdings.push(table());
-
+		holdings.push(createCoin());
+		adjustStorage();
 		card();
 		closeform();
 	});

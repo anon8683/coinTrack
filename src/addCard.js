@@ -1,3 +1,4 @@
+import adjustStorage from "./adjustStorage";
 function card() {
 	const x = holdings.length - 1;
 	const portfolio = document.getElementsByClassName("portfolioSide")[0];
@@ -6,9 +7,6 @@ function card() {
 	const yesterdayValue = document.getElementById("trendAmount");
 	const yesterdayTriangle = document.getElementById("trendingTriangle");
 	const log = console.log;
-	//chatGPT to get the small logo
-
-	//
 
 	holdingCard.setAttribute("id", `${x}`);
 	holdingCard.setAttribute("class", "holdingCard");
@@ -112,16 +110,9 @@ function card() {
 
 		pnlBox.setAttribute("class", "profit");
 
-		// console.log(logoUrl, price, price_change);
-
-		const log = console.log;
-
 		// adjust our 24h value
-
 		yesterdayTotal += price_change * holdings[x].amount;
-
 		displayPriceChange();
-
 		return logoUrl; // Returns the URL of the small logo
 	}
 
@@ -131,12 +122,15 @@ function card() {
 	const btns = Array.from(buttons);
 	btns.forEach((btn) =>
 		btn.addEventListener("click", (e) => {
-			console.log(`${btn.id} got clicked`);
-
 			if (btn.id.includes("Delete")) {
 				const cardToRemove = btn.id.slice(-1);
 				removeCard(cardToRemove);
 				removeHolding(cardToRemove);
+				adjustStorage();
+				const children = Array.from(portfolio.children);
+				if (children.length < 2) {
+					return;
+				}
 				firstCardVisible();
 			}
 		})
@@ -204,23 +198,19 @@ function card() {
 	function checkFirstCardId() {
 		//returns the id of the first card
 		// that card should have the extra headings and CSS
-
 		const children = Array.from(portfolio.children);
 		const firstCardId = children[1].id;
-
-		log(children, firstCardId);
 		return firstCardId;
 	}
 
 	function checkLastCardId() {
 		//returns the id of the first card
 		// that card should have the extra headings and CSS
-		// const portfolio = document.getElementsByClassName("portfolioSide")[0];
+
 		const children = Array.from(portfolio.children);
 		const length = children.length;
 		const lastCardId = children[length - 1].id;
 
-		log(children, lastCardId);
 		return lastCardId;
 	}
 
@@ -248,5 +238,3 @@ function card() {
 	}
 }
 export default card;
-// const portfolio = document.getElementsByClassName("portfolioSide")[0];
-// const children = Array.from(portfolio.children);

@@ -5,6 +5,7 @@ import table from "./table";
 import addHoldingPopup from "./addHoldingPopup";
 import closeform from "./closeform";
 import "./style.css";
+import card from "./addCard";
 
 createLayout(); //creates grid that containers header,main,footer
 header(); // adds header
@@ -17,18 +18,21 @@ document.getElementById("addHoldingButton").addEventListener("click", (e) => {
 	addHoldingPopup();
 });
 
-// const inputs = document.getElementsByClassName("inputs");
-// document.getElementById("addHolding").addEventListener("click", (e) => {
-// 	holdings.push(table());
-// });
+function getStorage() {
+	let saved_coins = JSON.parse(localStorage.getItem("coins")).filter((n) => n);
+	return saved_coins;
+}
 
-// Array.from(inputs).forEach((input) => {
-// 	input.addEventListener("change", (e) => {
-// 		holdings.push(table());
-// 	});
-// });
+window.coins = getStorage();
 
-// document.getElementById("a").addEventListener("input", table());
+window.addEventListener("load", (e) => {
+	console.log(coins);
+	for (let i = 0; i < coins.length; i++) {
+		const element = coins[i];
+		holdings.push(element);
+		card();
+	}
+});
 
 // when user clicks + button,
 // get the amount of holdings and SYMOBL
