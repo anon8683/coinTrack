@@ -180,10 +180,12 @@ main {
 	padding: 3px;
 }
 
-.symbol {
+.heading {
 	font-size: 0.8rem;
 	opacity: 75%;
 	padding: 1px;
+
+	margin-bottom: 10px;
 }
 
 .value {
@@ -367,4 +369,12 @@ img {
 	border-bottom-right-radius: 10px;
 	border-top-left-radius: 10px;
 	background-color: #373737;
+}
+
+.heading {
+	display: none;
+}
+
+.visible {
+	display: inline;
 }

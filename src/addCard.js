@@ -5,6 +5,7 @@ function card() {
 	const totalValue = document.getElementById("totalValue");
 	const yesterdayValue = document.getElementById("trendAmount");
 	const yesterdayTriangle = document.getElementById("trendingTriangle");
+	const log = console.log;
 	//chatGPT to get the small logo
 
 	//
@@ -12,29 +13,53 @@ function card() {
 	holdingCard.setAttribute("id", `${x}`);
 	holdingCard.setAttribute("class", "holdingCard");
 	holdingCard.innerHTML = `
-    <div class="join">
-		<div class="symbol">${holdings[x].symbol}</div>
-		<div class="value" id="value${x}"></div>
-	</div>
-    <div class="amount">${numberWithCommas(holdings[x].amount)}</div>
-    <div class="pnl" id="pnl${x}"></div>
-	<div class="price" id="price${x}"></div>
-	<div class="dropdown">
-	<button class="modifyButton" >:</button>
-  <div class="dropdown-content">
-    <button class="editButtons ${x}" id="buttonEdit${x}">Edit</a>
-    <button class="editButtons ${x}" id="buttonDelete${x}"Yeah>Delete</a>
-  </div>
-</div>
-
-
-	
-    `;
+		<div class="join">
+			<div class="symbol">${holdings[x].symbol}</div>
+			<div class="value" id="value${x}"></div>
+		</div>
+		<div class="join">
+			<div class="heading" id="heading${x}">QTY</div>
+			<div class="amount">${numberWithCommas(holdings[x].amount)}</div>
+		</div>
+		<div class="join">
+			<div class="heading" id="heading${x}">PnL</div>
+			<div class="pnl" id="pnl${x}"></div>
+		</div>
+		<div class="join">
+			<div class="heading" id="heading${x}">Price</div>
+			<div class="price" id="price${x}"></div>
+		</div>
+		<div class="dropdown">
+		<button class="modifyButton" >:</button>
+		 <div class="dropdown-content">
+		<button class="editButtons ${x}" id="buttonEdit${x}">Edit</a>
+		<button class="editButtons ${x}" id="buttonDelete${x}"Yeah>Delete</a>
+	  </div>`;
 
 	portfolio.appendChild(holdingCard);
+	checkFirstCardId();
 
+	function checkFirstCardId() {
+		//returns the id of the first card
+		// that card should have the extra headings and CSS
+
+		const children = Array.from(portfolio.children);
+		const firstCardId = children[1].id;
+
+		log(children, firstCardId);
+		return firstCardId;
+	}
+
+	function firstCardVisible() {
+		const card = document.getElementById(`heading${checkFirstCardId()}`);
+		const cards = document.querySelectorAll(`#heading${checkFirstCardId()}`);
+		console.log(cards);
+		cards.forEach((card) => card.setAttribute("class", "visible"));
+		// cards.setAttribute("class", "visible");
+	}
+
+	firstCardVisible();
 	const ticker = `${holdings[x].symbol}`;
-
 	getDataByTicker(ticker);
 	const valueBox = document.getElementById(`value${x}`);
 	const pnlBox = document.getElementById(`pnl${x}`);
@@ -138,7 +163,7 @@ function card() {
 
 		pnlBox.setAttribute("class", "profit");
 
-		console.log(logoUrl, price, price_change);
+		// console.log(logoUrl, price, price_change);
 
 		const log = console.log;
 
@@ -163,6 +188,7 @@ function card() {
 				const cardToRemove = btn.id.slice(-1);
 				removeCard(cardToRemove);
 				removeHolding(cardToRemove);
+				firstCardVisible();
 			}
 		})
 	);
@@ -225,6 +251,9 @@ function card() {
 	function displayTotalValue() {
 		totalValue.textContent = `$${numberWithCommas(total.toFixed(0))}`;
 	}
-}
 
+	function addHeadingsToSecond() {}
+}
 export default card;
+// const portfolio = document.getElementsByClassName("portfolioSide")[0];
+// const children = Array.from(portfolio.children);

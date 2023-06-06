@@ -11,7 +11,30 @@
 		<div id="grid-container">
 			<header></header>
 			<main></main>
-			<footer></footer>
+			<footer>
+				<div class="join">
+					<div class="heading">${holdings[x].symbol}</div>
+					<div class="value" id="value${x}"></div>
+				</div>
+				<div class="join">
+					<div class="heading">QTY</div>
+					<div class="amount">${numberWithCommas(holdings[x].amount)}</div>
+				</div>
+				<div class="join">
+					<div class="heading">PnL</div>
+					<div class="pnl" id="pnl${x}"></div>
+				</div>
+				<div class="join">
+					<div class="heading">Price</div>
+					<div class="price" id="price${x}"></div>
+				</div>
+				<div class="dropdown">
+				<button class="modifyButton" >:</button>
+				 <div class="dropdown-content">
+				<button class="editButtons ${x}" id="buttonEdit${x}">Edit</a>
+				<button class="editButtons ${x}" id="buttonDelete${x}"Yeah>Delete</a>
+			  </div>
+			</footer>
 		</div>
 	</body>
 </html>

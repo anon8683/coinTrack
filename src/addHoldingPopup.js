@@ -3,7 +3,8 @@ import table from "./table";
 import card from "./addCard";
 
 function addHoldingPopup() {
-	const content = document.getElementsByClassName("portfolioSide")[0];
+	// const content = document.getElementsByClassName("portfolioSide")[0];
+	const content = document.getElementsByTagName("main")[0];
 	const popup = document.createElement("div");
 	popup.setAttribute("id", "popUpForm");
 	popup.innerHTML = ` <div class="form-popup" id="form">
