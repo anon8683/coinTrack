@@ -39,6 +39,7 @@ function card() {
 	portfolio.appendChild(holdingCard);
 
 	//get the id of the first card then make headings visible
+
 	checkFirstCardId();
 	firstCardVisible();
 
@@ -211,11 +212,39 @@ function card() {
 		return firstCardId;
 	}
 
-	function firstCardVisible() {
-		//makes our headings visible on the first card
+	function checkLastCardId() {
+		//returns the id of the first card
+		// that card should have the extra headings and CSS
+		// const portfolio = document.getElementsByClassName("portfolioSide")[0];
+		const children = Array.from(portfolio.children);
+		const length = children.length;
+		const lastCardId = children[length - 1].id;
 
-		const cards = document.querySelectorAll(`#heading${checkFirstCardId()}`);
+		log(children, lastCardId);
+		return lastCardId;
+	}
+
+	function firstCardVisible() {
+		//makes our headings visible on the first card and adjust border
+
+		const id = checkFirstCardId();
+		const children = Array.from(portfolio.children);
+		const holdingCard = document.getElementById(`${id}`);
+
+		holdingCard.style.borderRadius = "0px";
+		holdingCard.style.borderTopRightRadius = "10px";
+		holdingCard.style.borderTopLeftRadius = "10px";
+
+		const cards = document.querySelectorAll(`#heading${id}`);
 		cards.forEach((card) => card.setAttribute("class", "visible"));
+
+		const lastCard = document.getElementById(`${checkLastCardId()}`);
+		lastCard.style.borderRadius = "0px";
+		lastCard.style.borderBottomRightRadius = "10px";
+		lastCard.style.borderBottomLeftRadius = "10px";
+		if (children.length <= 2) {
+			holdingCard.style.borderRadius = "10px";
+		}
 	}
 }
 export default card;
