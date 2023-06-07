@@ -17,7 +17,7 @@ function editPopUp(id) {
 					<label for="ticker">Editting ${holdingToEdit.symbol} holding</label>
 				
                     <div class="radio">
-	<input checked="" value="male" name="gender" id="male" type="radio" label="Buy">
+	<input checked="" value="male" name="gender" id="buy" type="radio" label="Buy">
 	<input value="female" name="gender" id="female" type="radio" label="Sell">
 	
 </div>
@@ -54,7 +54,8 @@ function editPopUp(id) {
 	document.getElementById("editSubmit").addEventListener("click", (e) => {
 		let amount = document.getElementById("amount").value;
 		let price = document.getElementById("price").value;
-		editHolding(holdingToEdit, amount, price, id);
+		let choice = document.getElementById("buy").checked;
+		editHolding(holdingToEdit, choice, amount, price, id);
 		closeform();
 	});
 }

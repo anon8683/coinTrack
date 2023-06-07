@@ -4,7 +4,6 @@ function card() {
 	const x = holdings.length - 1;
 	const portfolio = document.getElementsByClassName("portfolioSide")[0];
 	const holdingCard = document.createElement("div");
-	const totalValue = document.getElementById("totalValue");
 	const yesterdayValue = document.getElementById("trendAmount");
 	const yesterdayTriangle = document.getElementById("trendingTriangle");
 	const log = console.log;
@@ -18,9 +17,7 @@ function card() {
 		</div>
 		<div class="join">
 			<div class="heading" id="heading${x}">QTY</div>
-			<div class="amount" id="amount${x}">${numberWithCommas(
-		holdings[x].amount
-	)}</div>
+			<div class="amount" id="amount${x}"></div>
 		</div>
 		<div class="join">
 			<div class="heading" id="heading${x}">PnL</div>
@@ -48,10 +45,6 @@ function card() {
 
 	const ticker = `${holdings[x].symbol}`;
 	getDataByTicker(ticker);
-
-	const valueBox = document.getElementById(`value${x}`);
-	const pnlBox = document.getElementById(`pnl${x}`);
-	const priceBox = document.getElementById(`price${x}`);
 
 	async function getDataByTicker(ticker) {
 		const coinsUrl = "https://api.coingecko.com/api/v3/coins/list";
@@ -84,40 +77,23 @@ function card() {
 			price = price.toFixed(4);
 		}
 
-		const quantity = holdings[x].amount; //the amount of coins you hold
+		const quantity = +holdings[x].amount; //the amount of coins you hold
 		const value = price * quantity; // the value of coins you hold
 		const pnl = value - holdings[x].price * quantity; // your pnl
 		total += price * quantity; //adds value to portfolio value
 		holdings[x].value = value; // adds value property to object
 		holdings[x].market_price = price;
 		holdings[x].price_change = price_change * quantity;
+		yesterdayTotal += price_change * holdings[x].amount;
 
 		displayTotalValue();
 		displayValue(x, value);
+		displayAmount(x, quantity);
 		displayPnl(x, pnl);
 		displayPrice(x, price);
-
-		// valueBox.textContent = `$${numberWithCommas(value.toFixed(1))}`;
-		// pnlBox.textContent = `$${numberWithCommas(pnl.toFixed(2))}`;
-		// priceBox.textContent = `$${numberWithCommas(price)}`;
-
-		// if (price < 1000) {
-		// 	priceBox.textContent = `$${price}`;
-		// }
-
-		// if (pnl < 0) {
-		// 	//you are negative, add loss class
-		// 	pnlBox.textContent = `-$${numberWithCommas(pnl.toFixed(2) * -1)}`;
-		// 	pnlBox.setAttribute("class", "loss");
-		// 	return;
-		// }
-
-		// pnlBox.setAttribute("class", "profit");
-
-		// adjust our 24h value
-		yesterdayTotal += price_change * holdings[x].amount;
 		displayPriceChange();
-		return logoUrl; // Returns the URL of the small logo
+
+		return;
 	}
 
 	// add event listener to our buttons when the card is added
@@ -254,6 +230,12 @@ function displayValue(x, value) {
 	valueBox.textContent = `$${numberWithCommas(value.toFixed(1))}`;
 }
 
+function displayAmount(x, quantity) {
+	const amountBox = document.getElementById(`amount${x}`);
+	console.log(quantity);
+	amountBox.textContent = `${numberWithCommas(quantity.toFixed(1))}`;
+}
+
 function displayPnl(x, pnl) {
 	const pnlBox = document.getElementById(`pnl${x}`);
 	pnlBox.textContent = `$${numberWithCommas(pnl.toFixed(2))}`;
@@ -282,4 +264,12 @@ function numberWithCommas(x) {
 
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-export { card, displayTotalValue, displayValue, numberWithCommas };
+export {
+	card,
+	displayTotalValue,
+	displayValue,
+	displayAmount,
+	displayPnl,
+	displayPrice,
+	numberWithCommas,
+};
