@@ -1,10 +1,10 @@
 import closeform from "./closeform";
-import { card } from "./addCard";
-import createCoin from "./table";
-import adjustStorage from "./adjustStorage";
+import editHolding from "./editHolding";
 
-function addHoldingPopup() {
-	// const content = document.getElementsByClassName("portfolioSide")[0];
+function editPopUp(id) {
+	const holdingToEdit = holdings[id];
+	console.log(holdingToEdit);
+
 	const content = document.getElementsByTagName("main")[0];
 	const popup = document.createElement("div");
 	popup.setAttribute("id", "popUpForm");
@@ -14,14 +14,13 @@ function addHoldingPopup() {
   <form action="#" method="post" class="form-container" id="form1">
 <button type="button" id="closed">x</button>
     <div class="input">
-					<label for="ticker">Coin:</label>
-					<input
-						placeholder="$ticker"
-						class="input-style"
-						id="symbol"
-						type="text"
-						name="ticker"
-					/>
+					<label for="ticker">Editting ${holdingToEdit.symbol} holding</label>
+				
+                    <div class="radio">
+	<input checked="" value="male" name="gender" id="male" type="radio" label="Buy">
+	<input value="female" name="gender" id="female" type="radio" label="Sell">
+	
+</div>
 				</div>
 
     <div class="input">
@@ -35,7 +34,7 @@ function addHoldingPopup() {
     </div>
 
     <div class="input">
-    <label for="ticker">Price:</label>
+    <label for="ticker">stfu:</label>
       <input
         placeholder="price"
         class="input-style"
@@ -43,31 +42,21 @@ function addHoldingPopup() {
         type="number"
       />
     </div>
-    
-    <div class="input">
-    <label for="ticker">Date</label>
-      <input
-        placeholder="Date&Time"
-        class="input-style"
-        id="date"
-        type="datetime-local"
-      />
-    </div>
-
-    <button type="button" class="btn" id="submit">Add coin</button>
+    <button type="button" class="btn" id="editSubmit">Edit Holding</button>
   </form>
 </div>`;
+
 	content.appendChild(popup);
 	document.getElementById("closed").addEventListener("click", (e) => {
 		closeform();
 	});
 
-	document.getElementById("submit").addEventListener("click", (e) => {
-		holdings.push(createCoin());
-		adjustStorage();
-		card();
+	document.getElementById("editSubmit").addEventListener("click", (e) => {
+		let amount = document.getElementById("amount").value;
+		let price = document.getElementById("price").value;
+		editHolding(holdingToEdit, amount, price, id);
 		closeform();
 	});
 }
 
-export default addHoldingPopup;
+export default editPopUp;

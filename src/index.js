@@ -5,7 +5,7 @@ import table from "./table";
 import addHoldingPopup from "./addHoldingPopup";
 import closeform from "./closeform";
 import "./style.css";
-import card from "./addCard";
+import { card } from "./addCard";
 
 createLayout(); //creates grid that containers header,main,footer
 header(); // adds header

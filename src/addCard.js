@@ -1,4 +1,5 @@
 import adjustStorage from "./adjustStorage";
+import editPopUp from "./editPopUp";
 function card() {
 	const x = holdings.length - 1;
 	const portfolio = document.getElementsByClassName("portfolioSide")[0];
@@ -17,7 +18,9 @@ function card() {
 		</div>
 		<div class="join">
 			<div class="heading" id="heading${x}">QTY</div>
-			<div class="amount">${numberWithCommas(holdings[x].amount)}</div>
+			<div class="amount" id="amount${x}">${numberWithCommas(
+		holdings[x].amount
+	)}</div>
 		</div>
 		<div class="join">
 			<div class="heading" id="heading${x}">PnL</div>
@@ -49,14 +52,6 @@ function card() {
 	const valueBox = document.getElementById(`value${x}`);
 	const pnlBox = document.getElementById(`pnl${x}`);
 	const priceBox = document.getElementById(`price${x}`);
-
-	function numberWithCommas(x) {
-		if (x < 1 && x > 0) {
-			return x;
-		}
-
-		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	}
 
 	async function getDataByTicker(ticker) {
 		const coinsUrl = "https://api.coingecko.com/api/v3/coins/list";
@@ -94,26 +89,30 @@ function card() {
 		const pnl = value - holdings[x].price * quantity; // your pnl
 		total += price * quantity; //adds value to portfolio value
 		holdings[x].value = value; // adds value property to object
+		holdings[x].market_price = price;
 		holdings[x].price_change = price_change * quantity;
 
 		displayTotalValue();
+		displayValue(x, value);
+		displayPnl(x, pnl);
+		displayPrice(x, price);
 
-		valueBox.textContent = `$${numberWithCommas(value.toFixed(1))}`;
-		pnlBox.textContent = `$${numberWithCommas(pnl.toFixed(2))}`;
-		priceBox.textContent = `$${numberWithCommas(price)}`;
+		// valueBox.textContent = `$${numberWithCommas(value.toFixed(1))}`;
+		// pnlBox.textContent = `$${numberWithCommas(pnl.toFixed(2))}`;
+		// priceBox.textContent = `$${numberWithCommas(price)}`;
 
-		if (price < 1000) {
-			priceBox.textContent = `$${price}`;
-		}
+		// if (price < 1000) {
+		// 	priceBox.textContent = `$${price}`;
+		// }
 
-		if (pnl < 0) {
-			//you are negative, add loss class
-			pnlBox.textContent = `-$${numberWithCommas(pnl.toFixed(2) * -1)}`;
-			pnlBox.setAttribute("class", "loss");
-			return;
-		}
+		// if (pnl < 0) {
+		// 	//you are negative, add loss class
+		// 	pnlBox.textContent = `-$${numberWithCommas(pnl.toFixed(2) * -1)}`;
+		// 	pnlBox.setAttribute("class", "loss");
+		// 	return;
+		// }
 
-		pnlBox.setAttribute("class", "profit");
+		// pnlBox.setAttribute("class", "profit");
 
 		// adjust our 24h value
 		yesterdayTotal += price_change * holdings[x].amount;
@@ -138,6 +137,10 @@ function card() {
 				}
 				firstCardVisible();
 			}
+
+			console.log(`${btn.id}`);
+			const id = btn.id.slice(-1);
+			editPopUp(id);
 		})
 	);
 
@@ -196,10 +199,6 @@ function card() {
 		}
 	}
 
-	function displayTotalValue() {
-		totalValue.textContent = `$${numberWithCommas(total.toFixed(0))}`;
-	}
-
 	function checkFirstCardId() {
 		//returns the id of the first card
 		// that card should have the extra headings and CSS
@@ -237,9 +236,50 @@ function card() {
 		lastCard.style.borderRadius = "0px";
 		lastCard.style.borderBottomRightRadius = "10px";
 		lastCard.style.borderBottomLeftRadius = "10px";
+
 		if (children.length <= 2) {
 			holdingCard.style.borderRadius = "10px";
 		}
 	}
 }
-export default card;
+
+function displayTotalValue() {
+	const totalValue = document.getElementById("totalValue");
+	totalValue.textContent = `$${numberWithCommas(total.toFixed(0))}`;
+	console.log("total called!");
+}
+
+function displayValue(x, value) {
+	const valueBox = document.getElementById(`value${x}`);
+	valueBox.textContent = `$${numberWithCommas(value.toFixed(1))}`;
+}
+
+function displayPnl(x, pnl) {
+	const pnlBox = document.getElementById(`pnl${x}`);
+	pnlBox.textContent = `$${numberWithCommas(pnl.toFixed(2))}`;
+	if (pnl < 0) {
+		//you are negative, add loss class
+		pnlBox.textContent = `-$${numberWithCommas(pnl.toFixed(2) * -1)}`;
+		pnlBox.setAttribute("class", "loss");
+		return;
+	}
+
+	pnlBox.setAttribute("class", "profit");
+}
+
+function displayPrice(x, price) {
+	const priceBox = document.getElementById(`price${x}`);
+	priceBox.textContent = `$${numberWithCommas(price)}`;
+	if (price < 1000) {
+		priceBox.textContent = `$${price}`;
+	}
+}
+
+function numberWithCommas(x) {
+	if (x < 1 && x > 0) {
+		return x;
+	}
+
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+export { card, displayTotalValue, displayValue, numberWithCommas };
