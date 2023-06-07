@@ -197,6 +197,10 @@ function card() {
 	function firstCardVisible() {
 		//makes our headings visible on the first card and adjust border
 
+		const allCards = Array.from(document.querySelectorAll(".holdingCard"));
+
+		allCards.forEach((item) => (item.style.borderRadius = "0px"));
+
 		const id = checkFirstCardId();
 		const children = Array.from(portfolio.children);
 		const holdingCard = document.getElementById(`${id}`);
