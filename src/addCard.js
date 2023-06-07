@@ -102,8 +102,13 @@ function card() {
 		pnlBox.textContent = `$${numberWithCommas(pnl.toFixed(2))}`;
 		priceBox.textContent = `$${numberWithCommas(price)}`;
 
+		if (price < 1000) {
+			priceBox.textContent = `$${price}`;
+		}
+
 		if (pnl < 0) {
 			//you are negative, add loss class
+			pnlBox.textContent = `-$${numberWithCommas(pnl.toFixed(2) * -1)}`;
 			pnlBox.setAttribute("class", "loss");
 			return;
 		}

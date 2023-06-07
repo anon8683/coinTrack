@@ -23,14 +23,14 @@ function getStorage() {
 	return saved_coins;
 }
 
-window.coins = getStorage();
-
 window.addEventListener("load", (e) => {
-	console.log(coins);
-	for (let i = 0; i < coins.length; i++) {
-		const element = coins[i];
-		holdings.push(element);
-		card();
+	if (localStorage.getItem("coins") != null) {
+		window.coins = getStorage();
+		for (let i = 0; i < coins.length; i++) {
+			const element = coins[i];
+			holdings.push(element);
+			card();
+		}
 	}
 });
 

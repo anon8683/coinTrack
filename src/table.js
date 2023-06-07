@@ -11,9 +11,6 @@ function createCoin() {
 			this.amount = amount;
 		}
 	}
-
-	function addCoinToStorage() {}
-
 	return coin;
 }
 
