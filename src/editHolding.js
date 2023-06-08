@@ -4,13 +4,17 @@ import {
 	displayValue,
 	displayAmount,
 	displayPnl,
+	displayPriceChanges,
 } from "./addCard";
 function editHolding(holdingToEdit, choice, amount, price, id) {
 	const coin = holdingToEdit;
 	console.log(total);
+	const prevAmount = +coin.amount;
+
 	let totalquantity = +amount + +coin.amount; // our total qty
 	const market_price = coin.market_price; // price of coin
 	const valueOfEdit = +market_price * +amount; // value of the edit
+	let quantityDifference = +amount;
 
 	if (choice === true) {
 		total += valueOfEdit;
@@ -19,6 +23,7 @@ function editHolding(holdingToEdit, choice, amount, price, id) {
 	if (choice === false) {
 		total -= valueOfEdit;
 		totalquantity = +coin.amount - +amount;
+		quantityDifference = -+amount;
 	}
 
 	// work out avg price
@@ -46,6 +51,7 @@ function editHolding(holdingToEdit, choice, amount, price, id) {
 	displayValue(id, coin.value);
 	displayAmount(id, coin.amount);
 	displayPnl(id, pnl);
+	displayPriceChanges(quantityDifference, coin.price_change);
 }
 
 export default editHolding;

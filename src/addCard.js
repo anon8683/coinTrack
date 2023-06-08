@@ -4,8 +4,6 @@ function card() {
 	const x = holdings.length - 1;
 	const portfolio = document.getElementsByClassName("portfolioSide")[0];
 	const holdingCard = document.createElement("div");
-	const yesterdayValue = document.getElementById("trendAmount");
-	const yesterdayTriangle = document.getElementById("trendingTriangle");
 	const log = console.log;
 
 	holdingCard.setAttribute("id", `${x}`);
@@ -83,7 +81,7 @@ function card() {
 		total += price * quantity; //adds value to portfolio value
 		holdings[x].value = value; // adds value property to object
 		holdings[x].market_price = price;
-		holdings[x].price_change = price_change * quantity;
+		holdings[x].price_change = price_change;
 		yesterdayTotal += price_change * holdings[x].amount;
 
 		displayTotalValue();
@@ -91,7 +89,7 @@ function card() {
 		displayAmount(x, quantity);
 		displayPnl(x, pnl);
 		displayPrice(x, price);
-		displayPriceChange();
+		displayPriceChanges(x, price_change);
 
 		return;
 	}
@@ -140,41 +138,6 @@ function card() {
 		delete holdings[cardToRemove];
 	}
 
-	function displayPriceChange() {
-		let yesterdayA = total + yesterdayTotal;
-		if (yesterdayTotal === 0) {
-			yesterdayValue.textContent = "";
-			yesterdayTriangle.textContent = "";
-			return;
-		}
-
-		if (yesterdayTotal < 0) {
-			//negative
-			let percentage = ((total - yesterdayA) / total) * 100;
-			yesterdayValue.textContent = `-$${numberWithCommas(
-				yesterdayTotal.toFixed(0) * -1
-			)} (${percentage.toFixed(2)}%)`;
-
-			yesterdayValue.setAttribute("class", "loss");
-			yesterdayTriangle.setAttribute("class", "loss");
-			yesterdayTriangle.textContent = "▼";
-			return;
-		}
-
-		if (yesterdayTotal > 0) {
-			//positive
-			let percentage = ((yesterdayA - total) / yesterdayA) * 100;
-			yesterdayValue.textContent = `$${numberWithCommas(
-				yesterdayTotal.toFixed(0)
-			)} (${percentage.toFixed(2)}%)`;
-
-			yesterdayValue.setAttribute("class", "profit");
-			yesterdayTriangle.setAttribute("class", "profit");
-			yesterdayTriangle.textContent = "▲";
-			return;
-		}
-	}
-
 	function checkFirstCardId() {
 		//returns the id of the first card
 		// that card should have the extra headings and CSS
@@ -198,7 +161,6 @@ function card() {
 		//makes our headings visible on the first card and adjust border
 
 		const allCards = Array.from(document.querySelectorAll(".holdingCard"));
-
 		allCards.forEach((item) => (item.style.borderRadius = "0px"));
 
 		const id = checkFirstCardId();
@@ -220,6 +182,55 @@ function card() {
 		if (children.length <= 2) {
 			holdingCard.style.borderRadius = "10px";
 		}
+
+		if (window.innerWidth < 700) {
+			allCards.forEach((item) => (item.style.borderRadius = "0px"));
+		}
+	}
+}
+
+function displayPriceChanges(amount, price_change) {
+	const yesterdayValue = document.getElementById("trendAmount");
+	let difference = price_change * amount;
+	yesterdayTotal += difference;
+
+	yesterdayValue.textContent = `${yesterdayTotal}`;
+}
+
+function displayPriceChange() {
+	const yesterdayValue = document.getElementById("trendAmount");
+	const yesterdayTriangle = document.getElementById("trendingTriangle");
+	let yesterdayA = total + yesterdayTotal;
+	if (yesterdayTotal === 0) {
+		yesterdayValue.textContent = "";
+		yesterdayTriangle.textContent = "";
+		return;
+	}
+
+	if (yesterdayTotal < 0) {
+		//negative
+		let percentage = ((total - yesterdayA) / total) * 100;
+		yesterdayValue.textContent = `-$${numberWithCommas(
+			yesterdayTotal.toFixed(0) * -1
+		)} (${percentage.toFixed(2)}%)`;
+
+		yesterdayValue.setAttribute("class", "loss");
+		yesterdayTriangle.setAttribute("class", "loss");
+		yesterdayTriangle.textContent = "▼";
+		return;
+	}
+
+	if (yesterdayTotal > 0) {
+		//positive
+		let percentage = ((yesterdayA - total) / yesterdayA) * 100;
+		yesterdayValue.textContent = `$${numberWithCommas(
+			yesterdayTotal.toFixed(0)
+		)} (${percentage.toFixed(2)}%)`;
+
+		yesterdayValue.setAttribute("class", "profit");
+		yesterdayTriangle.setAttribute("class", "profit");
+		yesterdayTriangle.textContent = "▲";
+		return;
 	}
 }
 
@@ -275,5 +286,6 @@ export {
 	displayAmount,
 	displayPnl,
 	displayPrice,
+	displayPriceChanges,
 	numberWithCommas,
 };

@@ -242,6 +242,7 @@ img {
 	}
 
 	.holdingCard {
+		border-radius: 0px;
 	}
 }
 .form-container {
