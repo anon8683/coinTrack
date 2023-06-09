@@ -191,10 +191,42 @@ function card() {
 
 function displayPriceChanges(amount, price_change) {
 	const yesterdayValue = document.getElementById("trendAmount");
+	const yesterdayTriangle = document.getElementById("trendingTriangle");
 	let difference = price_change * amount;
 	yesterdayTotal += difference;
-
 	yesterdayValue.textContent = `${yesterdayTotal}`;
+
+	let yesterdayA = total + yesterdayTotal;
+	if (yesterdayTotal === 0) {
+		yesterdayValue.textContent = "";
+		yesterdayTriangle.textContent = "";
+		return;
+	}
+	if (yesterdayTotal < 0) {
+		//negative
+		let percentage = ((total - yesterdayA) / total) * 100;
+		yesterdayValue.textContent = `-$${numberWithCommas(
+			yesterdayTotal.toFixed(0) * -1
+		)} (${percentage.toFixed(2)}%)`;
+
+		yesterdayValue.setAttribute("class", "loss");
+		yesterdayTriangle.setAttribute("class", "loss");
+		yesterdayTriangle.textContent = "▼";
+		return;
+	}
+
+	if (yesterdayTotal > 0) {
+		//positive
+		let percentage = ((yesterdayA - total) / yesterdayA) * 100;
+		yesterdayValue.textContent = `$${numberWithCommas(
+			yesterdayTotal.toFixed(0)
+		)} (${percentage.toFixed(2)}%)`;
+
+		yesterdayValue.setAttribute("class", "profit");
+		yesterdayTriangle.setAttribute("class", "profit");
+		yesterdayTriangle.textContent = "▲";
+		return;
+	}
 }
 
 function displayPriceChange() {
