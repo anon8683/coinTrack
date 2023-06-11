@@ -7,6 +7,7 @@ import closeform from "./closeform";
 import "./style.css";
 import { card } from "./addCard";
 import showNews from "./news";
+import showPortfolio from "./portfolio";
 
 createLayout(); //creates grid that containers header,main,footer
 header(); // adds header
@@ -22,6 +23,11 @@ document.getElementById("addHoldingButton").addEventListener("click", (e) => {
 document.getElementById("newsButton").addEventListener("click", (e) => {
 	showNews();
 	console.log("news clicked");
+});
+
+document.getElementById("portfolioButton").addEventListener("click", (e) => {
+	showPortfolio();
+	console.log("port clicked");
 });
 
 function getStorage() {
