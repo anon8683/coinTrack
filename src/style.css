@@ -127,15 +127,17 @@ a:hover {
 main {
 	display: grid;
 	grid-template-rows: 1fr;
-	grid-template-columns: minmax(250px, 20vw) 1fr 0.3fr;
+	grid-template-columns: minmax(250px, 20vw) minmax(600px, 1fr) 0.3fr;
 }
 
+#news {
+	height: 100%;
+}
 .portfolioSide {
 	display: flex;
 	flex-direction: column;
 	padding: 35px;
 	border-left: 1px solid orange;
-	max-width: 80%;
 }
 .mainTop {
 	display: flex;
@@ -214,6 +216,10 @@ img {
 	color: rgb(107, 192, 107);
 }
 
+#leftHand {
+	display: block;
+}
+
 /* --------------------------------------------- */
 @media only screen and (max-width: 666px) {
 	.joined,
@@ -222,7 +228,7 @@ img {
 	}
 }
 
-@media only screen and (max-width: 766px) {
+@media only screen and (max-width: 855px) {
 	main {
 		grid-template-columns: 1fr;
 		display: block;
@@ -239,6 +245,7 @@ img {
 	.portfolioSide {
 		padding: 0;
 		border: none;
+		max-width: 100%;
 	}
 	.mainTop {
 		padding: 10px;
@@ -246,6 +253,10 @@ img {
 
 	.holdingCard {
 		border-radius: 0px;
+	}
+
+	#leftHand {
+		display: none;
 	}
 }
 .form-container {

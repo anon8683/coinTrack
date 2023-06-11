@@ -9,7 +9,7 @@ function header() {
 		<div class="buttonsLeft">
 			<button id="portfolioButton" class="navButton">Portfolio</button>
 			<button id="marketButton" class="navButton">Markets</button>
-			<button id="newsButton" class="navButton">News</button>
+			<button id="newsButton" class="navButton" >News</button>
 		</div>
 	</div>
 	<div class="joined" id="navRight">

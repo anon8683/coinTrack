@@ -6,6 +6,7 @@ import addHoldingPopup from "./addHoldingPopup";
 import closeform from "./closeform";
 import "./style.css";
 import { card } from "./addCard";
+import showNews from "./news";
 
 createLayout(); //creates grid that containers header,main,footer
 header(); // adds header
@@ -16,6 +17,11 @@ window.total = 0;
 window.yesterdayTotal = 0;
 document.getElementById("addHoldingButton").addEventListener("click", (e) => {
 	addHoldingPopup();
+});
+
+document.getElementById("newsButton").addEventListener("click", (e) => {
+	showNews();
+	console.log("news clicked");
 });
 
 function getStorage() {

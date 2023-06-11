@@ -58,6 +58,7 @@ function addHoldingPopup() {
   </form>
 </div>`;
 	content.appendChild(popup);
+
 	document.getElementById("closed").addEventListener("click", (e) => {
 		closeform();
 	});

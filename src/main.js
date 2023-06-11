@@ -1,6 +1,7 @@
 function main() {
 	const main = document.getElementsByTagName("main")[0];
-	main.innerHTML = `					<div>left hand stuff</div>
+	main.innerHTML = `					
+    <div id="leftHand"><rssapp-wall id="bFRl5r97EmOYCovg"></rssapp-wall><script src="https://widget.rss.app/v1/wall.js" type="text/javascript" async></script></div>
     <div class="portfolioSide">
         <div class="mainTop">
             <div class="topLeftSide">
