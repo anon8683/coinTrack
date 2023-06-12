@@ -1,9 +1,7 @@
 import header from "./header";
 import main from "./main";
 import createLayout from "./layout";
-import table from "./table";
 import addHoldingPopup from "./addHoldingPopup";
-import closeform from "./closeform";
 import "./style.css";
 import { card } from "./addCard";
 import showNews from "./news";
@@ -16,18 +14,30 @@ main();
 window.holdings = [];
 window.total = 0;
 window.yesterdayTotal = 0;
-document.getElementById("addHoldingButton").addEventListener("click", (e) => {
-	addHoldingPopup();
-});
 
-document.getElementById("newsButton").addEventListener("click", (e) => {
-	showNews();
-	console.log("news clicked");
-});
+//rewrite buttons
 
-document.getElementById("portfolioButton").addEventListener("click", (e) => {
-	showPortfolio();
-	console.log("port clicked");
+const buttons = Array.from(document.getElementsByTagName("button")); //all our buttons
+
+buttons.forEach((btn) => {
+	btn.addEventListener("click", (e) => {
+		switch (btn.id) {
+			case "portfolioButton":
+				showPortfolio();
+				break;
+
+			case "marketButton":
+				break;
+
+			case "newsButton":
+				showNews();
+				break;
+
+			case "addHoldingButton":
+				addHoldingPopup();
+				break;
+		}
+	});
 });
 
 function getStorage() {

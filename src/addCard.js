@@ -66,6 +66,7 @@ function card() {
 		const card = document.getElementById(`${x}`);
 		const logo = document.createElement("img");
 		logo.setAttribute("src", `${logoUrl}`);
+		logo.setAttribute("class", "holdingLogo");
 		card.prepend(logo);
 
 		// display our price

@@ -12,6 +12,7 @@ function main() {
             <button id="addHoldingButton">+</button>
         </div>
   </div>
+  
 </div>
 
     </div>`;
