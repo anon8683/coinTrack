@@ -12,7 +12,7 @@ function showMarkets() {
 	}
 	main.style.gridTemplateColumns = "1fr";
 	portfolio.style.display = "none";
-	market.style.display = "block";
+	market.style.display = "flex";
 
 	createMarketTable();
 	return;

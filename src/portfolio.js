@@ -8,8 +8,7 @@ function showPortfolio() {
 		news.style.display = "none";
 		portfolio.style.display = "flex";
 		main.style.display = "grid";
-		main.style.gridTemplateColumns =
-			"minmax(250px, 20vw) minmax(600px, 1fr) 0.3fr";
+		main.style.gridTemplateColumns = "minmax(250px, 20vw) minmax(600px, 1fr)";
 	}
 
 	if (market) {
@@ -17,8 +16,7 @@ function showPortfolio() {
 		market.style.display = "none";
 		portfolio.style.display = "flex";
 		main.style.display = "grid";
-		main.style.gridTemplateColumns =
-			"minmax(250px, 20vw) minmax(600px, 1fr) 0.3fr";
+		main.style.gridTemplateColumns = "minmax(250px, 20vw) minmax(600px, 1fr)";
 	}
 }
 

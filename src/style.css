@@ -147,7 +147,7 @@ main {
 	overflow-x: hidden;
 	display: grid;
 	grid-template-rows: 1fr;
-	grid-template-columns: minmax(250px, 20vw) minmax(600px, 1fr) 0.3fr;
+	grid-template-columns: minmax(250px, 20vw) minmax(600px, 1fr);
 }
 
 #news {
@@ -161,7 +161,7 @@ main {
 	display: flex;
 	flex-direction: column;
 	padding: 35px;
-	border-right: 1px solid #222531;
+	width: 80%;
 }
 .mainTop {
 	display: flex;
@@ -247,11 +247,17 @@ main {
 
 /* -----------------Market Table-------------------- */
 
+#market {
+	display: flex;
+	justify-content: center;
+}
+
 #marketTable {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	padding: 35px;
+	width: 80%;
 }
 
 table {
