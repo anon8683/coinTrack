@@ -34,7 +34,7 @@ function editPopUp(id) {
     </div>
 
     <div class="input">
-    <label for="ticker">stfu:</label>
+    <label for="ticker">Price:</label>
       <input
         placeholder="price"
         class="input-style"

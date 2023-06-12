@@ -109,7 +109,8 @@ a:hover {
 .modifyButton:hover,
 .editButtons:hover,
 .btn:hover,
-#closed:hover {
+#closed:hover,
+.active {
 	border: 1px solid orange;
 	cursor: pointer;
 	background-color: rgba(0, 0, 0, 0.495);
@@ -147,7 +148,7 @@ main {
 	display: flex;
 	flex-direction: column;
 	padding: 35px;
-	border-left: 1px solid #222531;
+	border-right: 1px solid #222531;
 }
 .mainTop {
 	display: flex;
@@ -228,6 +229,7 @@ main {
 
 #leftHand {
 	display: block;
+	border-right: 1px solid #222531;
 }
 
 /* --------------------------------------------- */
@@ -256,6 +258,7 @@ main {
 		padding: 0;
 		border: none;
 		max-width: 100%;
+		border-right: 1px solid #222531;
 	}
 	.mainTop {
 		padding: 10px;

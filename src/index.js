@@ -6,31 +6,44 @@ import "./style.css";
 import { card } from "./addCard";
 import showNews from "./news";
 import showPortfolio from "./portfolio";
-
-createLayout(); //creates grid that containers header,main,footer
-header(); // adds header
-main();
+import showMarkets from "./markets";
 
 window.holdings = [];
 window.total = 0;
 window.yesterdayTotal = 0;
 
-//rewrite buttons
+createLayout(); //creates grid that containers header,main,footer
+header(); // adds header
+main();
 
 const buttons = Array.from(document.getElementsByTagName("button")); //all our buttons
 
 buttons.forEach((btn) => {
 	btn.addEventListener("click", (e) => {
+		const marketButton = document.getElementById("marketButton");
+		const newsButton = document.getElementById("newsButton");
+		const portfolioButton = document.getElementById("portfolioButton");
+
+		let buttonClicked = document.getElementById(`${btn.id}`);
+		buttonClicked.setAttribute("class", "navButton active");
+
 		switch (btn.id) {
 			case "portfolioButton":
 				showPortfolio();
+				newsButton.setAttribute("class", "navButton");
+				marketButton.setAttribute("class", "navButton");
 				break;
 
 			case "marketButton":
+				showMarkets();
+				newsButton.setAttribute("class", "navButton");
+				portfolioButton.setAttribute("class", "navButton");
 				break;
 
 			case "newsButton":
 				showNews();
+				marketButton.setAttribute("class", "navButton");
+				portfolioButton.setAttribute("class", "navButton");
 				break;
 
 			case "addHoldingButton":
@@ -59,12 +72,3 @@ window.addEventListener("load", (e) => {
 		}
 	}
 });
-
-// when user clicks + button,
-// get the amount of holdings and SYMOBL
-// fetch data from api of that SYMBOL
-// calculte holding value, calc total portfolio value
-
-//get info from our user from popup when + is clicked
-//store our symbol, amount, price purchased, as an object
-//put those objects into table

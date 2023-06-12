@@ -8,7 +8,7 @@ function header() {
 			<h3>CoinTracker</h3>
 		</div>
 		<div class="buttonsLeft">
-			<button id="portfolioButton" class="navButton">Portfolio</button>
+			<button id="portfolioButton" class="navButton active">Portfolio</button>
 			<button id="marketButton" class="navButton">Markets</button>
 			<button id="newsButton" class="navButton" >News</button>
 		</div>
