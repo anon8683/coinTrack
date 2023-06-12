@@ -127,6 +127,13 @@ a:hover {
 	width: 100vw;
 }
 
+.coin-marquee-container {
+	width: auto;
+}
+
+.coin-marquee-container__inner {
+	animation-duration: 100s !important;
+}
 /* ------------------- */
 
 /* -----------------------main------------------- */

@@ -46,6 +46,10 @@ function getStorage() {
 }
 
 window.addEventListener("load", (e) => {
+	const marqueeHeader = document.getElementsByClassName(
+		"coin-marquee-header"
+	)[0];
+	marqueeHeader.remove();
 	if (localStorage.getItem("coins") != null) {
 		window.coins = getStorage();
 		for (let i = 0; i < coins.length; i++) {
