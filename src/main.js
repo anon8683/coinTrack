@@ -12,6 +12,7 @@ function main() {
             <button id="addHoldingButton">+</button>
         </div>
   </div>
+  <div id=market><script src="https://price-static.crypto.com/latest/public/static/widget/index.js"></script> <div id="crypto-widget-CoinList" data-design="classic" data-coin-ids="1,166,136,382,1120"></div></div>
   
 </div>
 

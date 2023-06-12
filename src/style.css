@@ -109,13 +109,21 @@ a:hover {
 .modifyButton:hover,
 .editButtons:hover,
 .btn:hover,
-#closed:hover,
-.active {
+#closed:hover {
 	border: 1px solid orange;
 	cursor: pointer;
 	background-color: rgba(0, 0, 0, 0.495);
 	color: rgba(255, 255, 255, 0.799);
 	scale: 1.01;
+	transition: 0.5s;
+}
+
+.active {
+	border: 1px solid orange;
+	cursor: pointer;
+	background-color: #222531;
+	color: rgba(255, 255, 255, 0.799);
+	scale: 1.05;
 	transition: 0.5s;
 }
 
@@ -143,6 +151,10 @@ main {
 
 #news {
 	height: 100%;
+}
+
+#market {
+	display: none;
 }
 .portfolioSide {
 	display: flex;
