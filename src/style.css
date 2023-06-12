@@ -144,6 +144,7 @@ a:hover {
 /* -----------------------main------------------- */
 
 main {
+	overflow-x: hidden;
 	display: grid;
 	grid-template-rows: 1fr;
 	grid-template-columns: minmax(250px, 20vw) minmax(600px, 1fr) 0.3fr;
@@ -243,6 +244,51 @@ main {
 	display: block;
 	border-right: 1px solid #222531;
 }
+
+/* -----------------Market Table-------------------- */
+
+#marketTable {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 35px;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+th {
+	color: rgba(255, 255, 255, 0.799);
+	padding: 10px;
+	font-size: 0.5rem;
+	text-align: inherit;
+}
+
+td {
+	font-size: 0.8rem;
+	/* padding-left: 5px;
+	padding-right: 5px; */
+	padding: 10px;
+	color: rgba(255, 255, 255, 0.799);
+}
+
+.cellLogo {
+	width: 30px;
+	height: 30px;
+}
+
+#coin {
+	display: flex;
+	align-items: center;
+	gap: 7px;
+}
+
+.coinItem {
+	border-bottom: 1px solid rgba(128, 128, 128, 0.4);
+}
+/* ------------------------------------------- */
 
 /* --------------------------------------------- */
 @media only screen and (max-width: 666px) {
