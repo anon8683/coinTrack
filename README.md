@@ -61,4 +61,7 @@ To run CoinTrack locally, follow these steps:
 
 ## Limitations
 
-This project is made using CoinGecko's free API which has a rate call limit (10-30 calls /min depending on traffic conditions, see API docs). This means if you add multiple holdings in quick succession or refresh the page many times you will receive a net::ERR_FAILED 429 error, as CoinGecko have blocked access until the next 1 minute window. In a real production enviroment a API plan would be used.
+This project is made using CoinGecko's free API which has a rate call limit (10-30 calls/min depending on traffic conditions, see API docs). This means if you add multiple holdings in quick succession or refresh the page many times you will receive a `net::ERR_FAILED 429 error`.
+
+CoinGecko have blocked access until the next 1 minute window.
+In a real production environment a API plan would be used.

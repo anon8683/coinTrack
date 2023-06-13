@@ -70,11 +70,11 @@ function card() {
 		card.prepend(logo);
 
 		// display our price
-		if (price > 5) {
-			price = price.toFixed(1);
-		} else {
-			price = price.toFixed(4);
-		}
+		// if (price > 5) {
+		// 	price = price.toFixed(1);
+		// } else {
+		// 	price = price.toFixed(4);
+		// }
 
 		const quantity = +holdings[x].amount; //the amount of coins you hold
 		const value = price * quantity; // the value of coins you hold
@@ -301,13 +301,17 @@ function displayPrice(x, price) {
 	const priceBox = document.getElementById(`price${x}`);
 	priceBox.textContent = `$${numberWithCommas(price)}`;
 	if (price < 1000) {
-		priceBox.textContent = `$${price}`;
+		priceBox.textContent = `$${+price.toFixed(0)}`;
 	}
 
 	console.log(price);
 
 	if (price < 5) {
-		priceBox.textContent = `$${price.toFixed(0)}`;
+		priceBox.textContent = `$${+price.toFixed(2)}`;
+	}
+
+	if (price < 1) {
+		priceBox.textContent = `$${+price.toFixed(4)}`;
 	}
 }
 
