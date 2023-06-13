@@ -4,7 +4,6 @@ function card() {
 	const x = holdings.length - 1;
 	const portfolio = document.getElementsByClassName("portfolioSide")[0];
 	const holdingCard = document.createElement("div");
-	const log = console.log;
 
 	holdingCard.setAttribute("id", `${x}`);
 	holdingCard.setAttribute("class", "holdingCard");
@@ -68,13 +67,6 @@ function card() {
 		logo.setAttribute("src", `${logoUrl}`);
 		logo.setAttribute("class", "holdingLogo");
 		card.prepend(logo);
-
-		// display our price
-		// if (price > 5) {
-		// 	price = price.toFixed(1);
-		// } else {
-		// 	price = price.toFixed(4);
-		// }
 
 		const quantity = +holdings[x].amount; //the amount of coins you hold
 		const value = price * quantity; // the value of coins you hold
@@ -269,8 +261,8 @@ function displayPriceChange() {
 
 function displayTotalValue() {
 	const totalValue = document.getElementById("totalValue");
-	totalValue.textContent = `$${numberWithCommas(total.toFixed(0))}`;
-	console.log("total called!");
+	totalValue.textContent = `$${total < 0 ? 0 : total.toFixed(0)}`;
+	//if total is less than 0, display $0 instead of minus or NaN
 }
 
 function displayValue(x, value) {
@@ -286,10 +278,10 @@ function displayAmount(x, quantity) {
 
 function displayPnl(x, pnl) {
 	const pnlBox = document.getElementById(`pnl${x}`);
-	pnlBox.textContent = `$${numberWithCommas(pnl.toFixed(2))}`;
+	pnlBox.textContent = `$${numberWithCommas(pnl.toFixed(0))}`;
 	if (pnl < 0) {
 		//you are negative, add loss class
-		pnlBox.textContent = `-$${numberWithCommas(pnl.toFixed(2) * -1)}`;
+		pnlBox.textContent = `-$${numberWithCommas(pnl.toFixed(0) * -1)}`;
 		pnlBox.setAttribute("class", "loss");
 		return;
 	}
@@ -300,19 +292,9 @@ function displayPnl(x, pnl) {
 function displayPrice(x, price) {
 	const priceBox = document.getElementById(`price${x}`);
 	priceBox.textContent = `$${numberWithCommas(price)}`;
-	if (price < 1000) {
-		priceBox.textContent = `$${+price.toFixed(0)}`;
-	}
-
-	console.log(price);
-
-	if (price < 5) {
-		priceBox.textContent = `$${+price.toFixed(2)}`;
-	}
-
-	if (price < 1) {
-		priceBox.textContent = `$${+price.toFixed(4)}`;
-	}
+	priceBox.textContent = `$${+price.toFixed(
+		price < 1 ? 4 : price < 5 ? 2 : 0
+	)}`;
 }
 
 function numberWithCommas(x) {

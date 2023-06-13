@@ -16,7 +16,6 @@ function showNews() {
 
 	newsContent.setAttribute("id", "news");
 	newsContent.innerHTML = `<iframe width="100%" height="100%" src="https://rss.app/embed/v1/magazine/ttuHzBuubMKI6cb8" frameborder="0"></iframe>`;
-
 	portfolio.style.display = "none";
 	market.style.display = "none";
 	main.style.display = "block";

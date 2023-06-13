@@ -115,7 +115,8 @@ a:hover {
 .modifyButton:hover,
 .editButtons:hover,
 .btn:hover,
-#closed:hover {
+#closed:hover,
+#loadMoreButton:hover {
 	border: 1px solid orange;
 	cursor: pointer;
 	background-color: rgba(0, 0, 0, 0.495);
@@ -160,8 +161,14 @@ main {
 	height: 100%;
 }
 
+.rssapp-grid {
+	background-color: red;
+}
+
 #market {
 	display: none;
+	align-items: center;
+	flex-direction: column;
 }
 .portfolioSide {
 	display: flex;
@@ -263,7 +270,21 @@ main {
 	justify-content: center;
 	align-items: center;
 	padding: 35px;
+	padding-bottom: 15px;
 	width: 80%;
+}
+
+#loadMoreButton {
+	color: rgba(255, 255, 255, 0.735);
+	background-color: transparent;
+	border-radius: 3px;
+	width: 125px;
+	height: 35px;
+}
+
+#loadMoreButton:hover {
+	cursor: pointer;
+	scale: 1.01;
 }
 
 table {
@@ -305,6 +326,24 @@ td {
 	cursor: pointer;
 	background-color: grey;
 }
+
+.positive {
+	color: rgb(107, 192, 107);
+}
+
+.negative {
+	color: rgba(247, 75, 75, 0.498);
+}
+
+/* .negative::after {
+	content: "▼";
+	margin-left: 5px;
+}
+
+.positive:after {
+	content: "▲";
+	margin-left: 5px;
+} */
 /* ------------------------------------------- */
 
 /* --------------------------------------------- */
@@ -339,13 +378,18 @@ td {
 	.amount,
 	.price,
 	.profit {
-		font-size: 0.65rem;
-		margin-bottom: 5px;
+		font-size: 1rem;
+		margin-top: 5px;
 	}
 
 	.symbol {
-		font-size: 0.85rem;
+		font-size: 1rem;
 		margin-top: 5px;
+	}
+
+	#trendAmount,
+	#trendingTriangle {
+		padding-bottom: 0px;
 	}
 
 	.portfolioSide {

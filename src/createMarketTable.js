@@ -1,5 +1,8 @@
 import { numberWithCommas } from "./addCard";
 
+let page = 1;
+let rank = 1;
+
 function createMarketTable() {
 	const market = document.getElementById("market");
 	const marketTable = document.createElement("div");
@@ -29,14 +32,19 @@ function createMarketTable() {
   </table>`;
 
 	market.append(marketTable);
+	const loadMoreButton = document.createElement("button");
+	loadMoreButton.setAttribute("id", "loadMoreButton");
+	loadMoreButton.textContent = "Load More";
+
+	market.append(loadMoreButton);
+	buttonListen();
 
 	//for each item in our fetchresult, create a table row etc etc
 	fetchMarketData();
 }
 
 async function fetchMarketData() {
-	const dataUrl =
-		"https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d%2C30d&locale=en";
+	const dataUrl = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=${page}&sparkline=false&price_change_percentage=1h%2C24h%2C7d%2C30d&locale=en`;
 
 	const dataResponse = await fetch(dataUrl);
 	const data = await dataResponse.json();
@@ -59,22 +67,30 @@ async function fetchMarketData() {
 			currentPrice = element.current_price.toFixed(0);
 		}
 
+		let positiveOrNegative = "positive";
+		if (element.price_change_percentage_24h < 0) {
+			//negative price change
+
+			positiveOrNegative = "negative";
+		}
+
 		item.innerHTML = `
         
-                <td class="rank">${index + 1}</td>
+                <td class="rank">${rank}</td>
                 <td class="coin"><img src="${element.image}" class="cellLogo">${
 			element.name
 		}</td>
                 <td class="tablePrice">$${numberWithCommas(currentPrice)}</td>
-				<td class="tablePriceChange">${element.price_change_percentage_24h.toFixed(
-					1
-				)}%</td>
+				<td class="tablePriceChange ${positiveOrNegative}">${element.price_change_percentage_24h.toFixed(
+			1
+		)}%</td>
 				<td class="tableMcap">$${millsOrBills(element.market_cap)}</td>
 				<td class="tableVolume">$${numberWithCommas(element.total_volume)}</td>
 				<td class="tableGraph">graph</td>
 			
         
         `;
+		rank += 1;
 		table.append(item);
 	}
 }
@@ -89,5 +105,16 @@ function millsOrBills(number) {
 	const billions = (number / 1e9).toFixed(1);
 	return billions + "B";
 }
+
+function buttonListen() {
+	const button = document.getElementById("loadMoreButton");
+	button.addEventListener("click", (e) => {
+		page += 1;
+		console.log(page);
+		fetchMarketData();
+	});
+}
+
+function price_change(change_24h) {}
 
 export default createMarketTable;
