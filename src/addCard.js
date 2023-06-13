@@ -104,8 +104,6 @@ function card() {
 				}
 				firstCardVisible();
 			}
-
-			console.log(`${btn.id}`);
 			const id = btn.id.slice(-1);
 			editPopUp(id);
 		})
@@ -261,7 +259,9 @@ function displayPriceChange() {
 
 function displayTotalValue() {
 	const totalValue = document.getElementById("totalValue");
-	totalValue.textContent = `$${total < 0 ? 0 : total.toFixed(0)}`;
+	totalValue.textContent = `$${numberWithCommas(
+		total < 0 ? 0 : total.toFixed(0)
+	)}`;
 	//if total is less than 0, display $0 instead of minus or NaN
 }
 
@@ -272,7 +272,6 @@ function displayValue(x, value) {
 
 function displayAmount(x, quantity) {
 	const amountBox = document.getElementById(`amount${x}`);
-	console.log(quantity);
 	amountBox.textContent = `${numberWithCommas(quantity.toFixed(1))}`;
 }
 

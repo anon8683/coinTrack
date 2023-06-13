@@ -2,7 +2,7 @@
 	--grey: rgb(56, 55, 55);
 	--lightGrey: rgba(255, 255, 255, 0.735);
 	--green: rgb(28, 130, 28);
-	--body: rgba(0, 0, 0, 0.886);
+	--body: rgb(23, 23, 23);
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Anuphan&family=Schibsted+Grotesk&display=swap");
@@ -55,6 +55,7 @@ header {
 	display: flex;
 	align-items: center;
 	gap: 5px;
+	justify-content: space-between;
 }
 
 .joined {
@@ -63,6 +64,7 @@ header {
 }
 
 .buttonsLeft {
+	width: auto;
 	gap: 15px;
 }
 
@@ -155,6 +157,13 @@ main {
 	display: grid;
 	grid-template-rows: 1fr;
 	grid-template-columns: minmax(250px, 20vw) minmax(600px, 1fr);
+}
+
+#intro {
+	color: var(--lightGrey);
+	border-radius: 5px;
+	padding: 20px;
+	border: 1px solid var(--grey);
 }
 
 #news {
@@ -296,6 +305,9 @@ th {
 	padding: 10px;
 	font-size: 0.5rem;
 	text-align: inherit;
+	position: sticky;
+	top: 0;
+	background-color: var(--body);
 }
 
 td {
@@ -349,11 +361,11 @@ td {
 @media only screen and (max-width: 666px) {
 	.joined,
 	.buttonsLeft {
-		gap: 5px;
+		gap: 20px;
 	}
 }
 
-@media only screen and (max-width: 855px) {
+@media only screen and (max-width: 755px) {
 	main {
 		grid-template-columns: 1fr;
 		display: block;
@@ -370,9 +382,15 @@ td {
 		padding-top: 10px;
 	}
 
-	.flex-left {
-		margin-right: 160px;
+	.buttonsLeft {
+		width: 100%;
+		gap: 7px;
 	}
+
+	.navButton {
+		width: 100%;
+	}
+
 	.value,
 	.amount,
 	.price,
@@ -536,9 +554,6 @@ label {
 	display: none;
 	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 	z-index: 1;
-	border-bottom-left-radius: 10px;
-	border-bottom-right-radius: 10px;
-	border-top-left-radius: 10px;
 	background-color: #373737;
 }
 
@@ -571,10 +586,7 @@ label {
 }
 
 .editButtons {
-	border-bottom-left-radius: 10px;
-	border-bottom-right-radius: 10px;
-	border-top-left-radius: 10px;
-	background-color: #373737;
+	background-color: #ffffff;
 }
 
 .heading {
