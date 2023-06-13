@@ -1,7 +1,6 @@
 import { numberWithCommas } from "./addCard";
 
 let page = 1;
-let rank = 1;
 
 function createMarketTable() {
 	const market = document.getElementById("market");
@@ -54,6 +53,10 @@ async function fetchMarketData() {
 		const table = document.querySelector("tbody");
 		const item = document.createElement("tr");
 
+		if (element.price_change_percentage_24h === null) {
+			continue;
+		}
+
 		item.setAttribute("id", `coin${index}`);
 		item.setAttribute("class", "coinItem");
 		item.setAttribute(
@@ -76,7 +79,7 @@ async function fetchMarketData() {
 
 		item.innerHTML = `
         
-                <td class="rank">${rank}</td>
+                <td class="rank">${element.market_cap_rank}</td>
                 <td class="coin"><img src="${element.image}" class="cellLogo">${
 			element.name
 		}</td>
@@ -90,7 +93,6 @@ async function fetchMarketData() {
 			
         
         `;
-		rank += 1;
 		table.append(item);
 	}
 }
@@ -110,7 +112,6 @@ function buttonListen() {
 	const button = document.getElementById("loadMoreButton");
 	button.addEventListener("click", (e) => {
 		page += 1;
-		console.log(page);
 		fetchMarketData();
 	});
 }
