@@ -1,13 +1,16 @@
+import profileIcon from "../src/img/profile-user.png";
+import logo from "../src/img/logo.svg";
+
 function header() {
 	const header = document.getElementsByTagName("header")[0];
 	header.innerHTML = `	<div id="header-flex">
 	
 	<div class="joined">
 		<div class="flex-left">
-			<img id="logo" src="/repos/coinTrack/src/img/logo.svg" alt="#" />
+			<img id="logo" src="${logo}" alt="#" />
 			<h3>CoinTracker</h3>
 		</div>
-		<img id="profileIcon" src="../src/img/profile-user.png" alt="">
+		<img id="profileIcon" src="${profileIcon}" alt="">
 		<div class="buttonsLeft">
 			<button id="portfolioButton" class="navButton active">Portfolio</button>
 			<button id="marketButton" class="navButton">Markets</button>
