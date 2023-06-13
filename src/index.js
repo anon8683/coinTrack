@@ -12,6 +12,10 @@ window.holdings = [];
 window.total = 0;
 window.yesterdayTotal = 0;
 
+function redirectTo(url) {
+	window.location.href = url;
+}
+
 createLayout(); //creates grid that containers header,main,footer
 header(); // adds header
 main();

@@ -294,6 +294,11 @@ td {
 .coinItem {
 	border-bottom: 1px solid rgba(128, 128, 128, 0.4);
 }
+
+.coinItem:hover {
+	cursor: pointer;
+	background-color: grey;
+}
 /* ------------------------------------------- */
 
 /* --------------------------------------------- */

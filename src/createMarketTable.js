@@ -49,6 +49,10 @@ async function fetchMarketData() {
 
 		item.setAttribute("id", `coin${index}`);
 		item.setAttribute("class", "coinItem");
+		item.setAttribute(
+			"onClick",
+			`redirectTo('https://www.coingecko.com/en/coins/${element.name.toLowerCase()}')`
+		);
 
 		let currentPrice = element.current_price.toFixed(2);
 
@@ -72,7 +76,9 @@ async function fetchMarketData() {
 			
         
         `;
-
+		item.addEventListener("click", function () {
+			console.log(item.id);
+		});
 		table.append(item);
 	}
 }
