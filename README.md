@@ -45,21 +45,20 @@ To run CoinTrack locally, follow these steps:
    npm install
    ```
 
-3. Configure the API keys:
-
-   - Obtain an API key from CoinGecko and provide it in the appropriate configuration file.
-   - Set up an RSS feed using rss.app and configure the feed URL in the application.
-
-4. Build the project:
+3. Build the project:
 
    ```shell
    npm run build
    ```
 
-5. Launch the application:
+4. Launch the application:
 
    ```shell
    npm start
    ```
 
-6. Open your web browser and visit `http://localhost:3000` to access CoinTrack locally.
+5. Open your web browser and visit `http://localhost:3000` to access CoinTrack locally.
+
+## Limitations
+
+This project is made using CoinGecko's free API which has a rate call limit (10-30 calls /min depending on traffic conditions, see API docs). This means if you add multiple holdings in quick succession or refresh the page many times you will receive a net::ERR_FAILED 429 error, as CoinGecko have blocked access until the next 1 minute window. In a real production enviroment a API plan would be used.

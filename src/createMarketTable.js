@@ -43,7 +43,6 @@ async function fetchMarketData() {
 
 	for (let index = 0; index < data.length; index++) {
 		const element = data[index];
-		console.log(element);
 		const table = document.querySelector("tbody");
 		const item = document.createElement("tr");
 
@@ -76,9 +75,6 @@ async function fetchMarketData() {
 			
         
         `;
-		item.addEventListener("click", function () {
-			console.log(item.id);
-		});
 		table.append(item);
 	}
 }

@@ -303,6 +303,12 @@ function displayPrice(x, price) {
 	if (price < 1000) {
 		priceBox.textContent = `$${price}`;
 	}
+
+	console.log(price);
+
+	if (price < 5) {
+		priceBox.textContent = `$${price.toFixed(0)}`;
+	}
 }
 
 function numberWithCommas(x) {

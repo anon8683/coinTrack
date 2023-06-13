@@ -7,6 +7,7 @@ function header() {
 			<img id="logo" src="/repos/coinTrack/src/img/logo.svg" alt="#" />
 			<h3>CoinTracker</h3>
 		</div>
+		<img id="profileIcon" src="../src/img/profile-user.png" alt="">
 		<div class="buttonsLeft">
 			<button id="portfolioButton" class="navButton active">Portfolio</button>
 			<button id="marketButton" class="navButton">Markets</button>
@@ -16,6 +17,7 @@ function header() {
 	<div class="joined" id="navRight">
 		<h4><a href="#">Sign up</a></h4>
 		<h4><a href="#">Login</a></h4>
+		
 	</div>
 </div>
 	`;

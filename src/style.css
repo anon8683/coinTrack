@@ -66,6 +66,12 @@ header {
 	gap: 15px;
 }
 
+#profileIcon {
+	display: none;
+	width: 35px;
+	height: 35px;
+}
+
 #logo {
 	width: 35px;
 	height: 35px;
@@ -315,12 +321,31 @@ td {
 		display: block;
 	}
 
+	#navRight {
+		display: none;
+	}
+	#profileIcon {
+		display: block;
+	}
+
+	#header-flex {
+		padding-top: 10px;
+	}
+
+	.flex-left {
+		margin-right: 160px;
+	}
 	.value,
 	.amount,
 	.price,
-	.profit,
-	.symbol {
+	.profit {
 		font-size: 0.65rem;
+		margin-bottom: 5px;
+	}
+
+	.symbol {
+		font-size: 0.85rem;
+		margin-top: 5px;
 	}
 
 	.portfolioSide {
