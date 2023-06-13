@@ -4,6 +4,7 @@ function createMarketTable() {
 	const market = document.getElementById("market");
 	const marketTable = document.createElement("div");
 	const table = document.getElementById("marketTable");
+	const width = window.innerWidth;
 	marketTable.setAttribute("id", "marketTable");
 
 	if (table) {
@@ -13,13 +14,13 @@ function createMarketTable() {
 	marketTable.innerHTML = `<table>
     <thead>
       <tr>
-        <th>#</th>
-        <th>Coin</th>
-        <th>Price</th>
-        <th>Change 24h</th> 
-        <th>Market Cap</th>
-        <th>Volume</th>
-        <th>Price Graph</th>
+        <th class="thRank">#</th>
+        <th class="thCoin">Coin</th>
+        <th class="thPrice">Price</th>
+        <th class="thChange">Change 24h</th> 
+        <th class="thMcap">Market Cap</th>
+        <th class="thVolume">Volume</th>
+        <th class="thPriceGraph">Price Graph</th>
       </tr>
     </thead>
     <tbody>
@@ -57,15 +58,17 @@ async function fetchMarketData() {
 
 		item.innerHTML = `
         
-                <td>${index + 1}</td>
-                <td id="coin"><img src="${element.image}" class="cellLogo">${
+                <td class="rank">${index + 1}</td>
+                <td class="coin"><img src="${element.image}" class="cellLogo">${
 			element.name
 		}</td>
-                <td>$${numberWithCommas(currentPrice)}</td>
-				<td>${element.price_change_percentage_24h.toFixed(1)}%</td>
-				<td>$${millsOrBills(element.market_cap)}</td>
-				<td>$${numberWithCommas(element.total_volume)}</td>
-				<td>graph</td>
+                <td class="tablePrice">$${numberWithCommas(currentPrice)}</td>
+				<td class="tablePriceChange">${element.price_change_percentage_24h.toFixed(
+					1
+				)}%</td>
+				<td class="tableMcap">$${millsOrBills(element.market_cap)}</td>
+				<td class="tableVolume">$${numberWithCommas(element.total_volume)}</td>
+				<td class="tableGraph">graph</td>
 			
         
         `;

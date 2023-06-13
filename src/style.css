@@ -285,7 +285,7 @@ td {
 	height: 30px;
 }
 
-#coin {
+.coin {
 	display: flex;
 	align-items: center;
 	gap: 7px;
@@ -321,7 +321,7 @@ td {
 	.portfolioSide {
 		padding: 0;
 		border: none;
-		max-width: 100%;
+		width: 100%;
 		border-right: 1px solid #222531;
 	}
 	.mainTop {
@@ -333,6 +333,29 @@ td {
 	}
 
 	#leftHand {
+		display: none;
+	}
+
+	#market {
+		display: block;
+		justify-content: start;
+	}
+
+	#marketTable {
+		display: flex;
+		justify-content: start;
+		padding: 0px;
+		width: auto;
+	}
+
+	td {
+		padding: 6px;
+	}
+
+	.thVolume,
+	.thPriceGraph,
+	.tableVolume,
+	.tableGraph {
 		display: none;
 	}
 }
