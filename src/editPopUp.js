@@ -10,7 +10,6 @@ function editPopUp(id) {
 	popup.setAttribute("id", "popUpForm");
 	popup.innerHTML = ` 
   <div class="form-popup" id="form">
-  
   <form action="#" method="post" class="form-container" id="form1">
 <button type="button" id="closed">x</button>
     <div class="input">
