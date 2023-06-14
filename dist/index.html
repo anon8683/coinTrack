@@ -24,7 +24,7 @@
 	</head>
 
 	<body>
-		<div class="form-popup" id="form">
+		<!-- <div class="form-popup" id="form">
 			<form action="#" method="post" class="form-container" id="form1">
 				<button type="button" id="closed">x</button>
 				<div class="input">
@@ -79,6 +79,58 @@
 				</div>
 
 				<button type="submit" class="btn" id="submit">Add coin</button>
+			</form>
+		</div> -->
+
+		<div class="form-popup" id="form">
+			<form action="#" method="post" class="form-container" id="form1">
+				<button type="button" id="closed">x</button>
+				<div class="input">
+					<label for="ticker">Editting ${holdingToEdit.symbol} holding</label>
+
+					<div class="radio">
+						<input
+							checked=""
+							value="male"
+							name="gender"
+							id="buy"
+							type="radio"
+							label="Buy"
+						/>
+						<input
+							value="female"
+							name="gender"
+							id="female"
+							type="radio"
+							label="Sell"
+						/>
+					</div>
+				</div>
+
+				<div class="input">
+					<label for="ticker">Amount:</label>
+					<input
+						placeholder="quantity"
+						class="input-style"
+						id="amount"
+						type="text"
+						required
+						pattern="^\\d*\\.?\\d+$"
+					/>
+				</div>
+
+				<div class="input">
+					<label for="ticker">Price:</label>
+					<input
+						placeholder="price"
+						class="input-style"
+						id="price"
+						type="number"
+						required
+						pattern="^\\d*\\.?\\d+$"
+					/>
+				</div>
+				<button type="button" class="btn" id="editSubmit">Edit Holding</button>
 			</form>
 		</div>
 	</body>

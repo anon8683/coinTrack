@@ -8,44 +8,65 @@ function editPopUp(id) {
 	const content = document.getElementsByTagName("main")[0];
 	const popup = document.createElement("div");
 	popup.setAttribute("id", "popUpForm");
-	popup.innerHTML = ` 
+	popup.innerHTML = `
   <div class="form-popup" id="form">
   <form action="#" method="post" class="form-container" id="form1">
-<button type="button" id="closed">x</button>
+    <button type="button" id="closed">x</button>
     <div class="input">
-					<label for="ticker">Editting ${holdingToEdit.symbol} holding</label>
-				
-                    <div class="radio">
-	<input checked="" value="male" name="gender" id="buy" type="radio" label="Buy">
-	<input value="female" name="gender" id="female" type="radio" label="Sell">
-	
-</div>
-				</div>
+      <label for="ticker">Editting ${holdingToEdit.symbol} holding</label>
+
+      <div class="radio">
+        <input
+          checked=""
+          value="male"
+          name="gender"
+          id="buy"
+          type="radio"
+          label="Buy"
+        />
+        <input
+          value="female"
+          name="gender"
+          id="female"
+          type="radio"
+          label="Sell"
+        />
+      </div>
+    </div>
 
     <div class="input">
-    <label for="ticker">Amount:</label>
+      <label for="ticker">Amount:</label>
       <input
         placeholder="quantity"
         class="input-style"
         id="amount"
         type="text"
+        required
+        pattern="^\\d*\\.?\\d+$"
       />
     </div>
 
     <div class="input">
-    <label for="ticker">Price:</label>
+      <label for="ticker">Price:</label>
       <input
         placeholder="price"
         class="input-style"
         id="price"
         type="number"
+        required
+        pattern="^\\d*\\.?\\d+$"
       />
     </div>
     <button type="button" class="btn" id="editSubmit">Edit Holding</button>
   </form>
-</div>`;
+</div>
+  `;
 
 	content.appendChild(popup);
+
+	const amount_input = document.getElementById("amount");
+	const price_input = document.getElementById("price");
+
 	document.getElementById("closed").addEventListener("click", (e) => {
 		closeform();
 	});
@@ -54,6 +75,10 @@ function editPopUp(id) {
 		let amount = document.getElementById("amount").value;
 		let price = document.getElementById("price").value;
 		let choice = document.getElementById("buy").checked;
+		if (!amount_input.validity.valid || !price_input.validity.valid) {
+			e.preventDefault();
+			return;
+		}
 		editHolding(holdingToEdit, choice, amount, price, id);
 		closeform();
 	});
