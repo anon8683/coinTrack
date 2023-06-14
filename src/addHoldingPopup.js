@@ -131,12 +131,57 @@ function validateForm(input) {
 	}
 }
 
-function validateSymbol() {}
+function validateSymbol() {
+	const symbol_input = document.getElementById("symbol");
 
-function validateAmount() {}
+	if (symbol_input.validity.valid) {
+		document.querySelector(".symbolError").textContent = "✅";
+		symbol_input.classList.remove("invalid");
+		symbol_input.classList.add("valid");
+		return;
+	}
+	document.querySelector(".symbolError").textContent = "❌";
+	symbol_input.classList.remove("valid");
+	symbol_input.classList.add("invalid");
+}
 
-function validatePrice() {}
+function validateAmount() {
+	const amount_input = document.getElementById("amount");
+	if (amount_input.validity.valid) {
+		document.querySelector(".amountError").textContent = "✅";
+		amount_input.classList.remove("invalid");
+		amount_input.classList.add("valid");
+		return;
+	}
+	document.querySelector(".amountError").textContent = "❌";
+	amount_input.classList.remove("valid");
+	amount_input.classList.add("invalid");
+}
 
-function validateDate() {}
+function validatePrice() {
+	const price_input = document.getElementById("price");
+	if (price_input.validity.valid) {
+		document.querySelector(".priceError").textContent = "✅";
+		price_input.classList.remove("invalid");
+		price_input.classList.add("valid");
+		return;
+	}
+	document.querySelector(".priceError").textContent = "❌";
+	price_input.classList.remove("valid");
+	price_input.classList.add("invalid");
+}
+
+function validateDate() {
+	const date_input = document.getElementById("date");
+	if (date_input.validity.valid) {
+		document.querySelector(".dateError").textContent = "✅";
+		date_input.classList.remove("invalid");
+		date_input.classList.add("valid");
+		return;
+	}
+	document.querySelector(".dateError").textContent = "❌";
+	date_input.classList.remove("valid");
+	date_input.classList.add("invalid");
+}
 
 export default addHoldingPopup;

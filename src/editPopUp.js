@@ -44,6 +44,7 @@ function editPopUp(id) {
         required
         pattern="^\\d*\\.?\\d+$"
       />
+      <span class="amountError"></span>
     </div>
 
     <div class="input">
@@ -52,10 +53,11 @@ function editPopUp(id) {
         placeholder="price"
         class="input-style"
         id="price"
-        type="number"
+        type="text"
         required
         pattern="^\\d*\\.?\\d+$"
       />
+      <span class="priceError"></span>
     </div>
     <button type="button" class="btn" id="editSubmit">Edit Holding</button>
   </form>
@@ -67,11 +69,20 @@ function editPopUp(id) {
 	const amount_input = document.getElementById("amount");
 	const price_input = document.getElementById("price");
 
+	const inputs = Array.from(document.querySelectorAll("input"));
+	const submit = document.getElementById("editSubmit");
+
+	inputs.forEach((input) => {
+		input.addEventListener("change", (e) => {
+			validateForm(input.id);
+		});
+	});
+
 	document.getElementById("closed").addEventListener("click", (e) => {
 		closeform();
 	});
 
-	document.getElementById("editSubmit").addEventListener("click", (e) => {
+	submit.addEventListener("click", (e) => {
 		let amount = document.getElementById("amount").value;
 		let price = document.getElementById("price").value;
 		let choice = document.getElementById("buy").checked;
@@ -82,6 +93,44 @@ function editPopUp(id) {
 		editHolding(holdingToEdit, choice, amount, price, id);
 		closeform();
 	});
+}
+
+function validateForm(input) {
+	switch (input) {
+		case "amount":
+			validateAmount();
+			break;
+
+		case "price":
+			validatePrice();
+			break;
+	}
+}
+
+function validateAmount() {
+	const amount_input = document.getElementById("amount");
+	if (amount_input.validity.valid) {
+		document.querySelector(".amountError").textContent = "✅";
+		amount_input.classList.remove("invalid");
+		amount_input.classList.add("valid");
+		return;
+	}
+	document.querySelector(".amountError").textContent = "❌";
+	amount_input.classList.remove("valid");
+	amount_input.classList.add("invalid");
+}
+
+function validatePrice() {
+	const price_input = document.getElementById("price");
+	if (price_input.validity.valid) {
+		document.querySelector(".priceError").textContent = "✅";
+		price_input.classList.remove("invalid");
+		price_input.classList.add("valid");
+		return;
+	}
+	document.querySelector(".priceError").textContent = "❌";
+	price_input.classList.remove("valid");
+	price_input.classList.add("invalid");
 }
 
 export default editPopUp;

@@ -516,6 +516,29 @@ span {
 	position: absolute;
 }
 
+.valid {
+}
+
+.invalid {
+}
+
+input[type="text"] {
+	-webkit-appearance: none;
+	outline: none;
+}
+
+input:active {
+	border: none;
+}
+
+.symbolError,
+.amountError,
+.priceError,
+.dateError {
+	opacity: 20%;
+	left: 45%;
+}
+
 #closed {
 	position: relative;
 	top: -8px;
