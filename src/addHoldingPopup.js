@@ -76,7 +76,6 @@ function addHoldingPopup() {
 
 	inputs.forEach((input) =>
 		input.addEventListener("change", (e) => {
-			console.log(input.id + "has changed");
 			validateForm(input.id);
 		})
 	);
@@ -111,21 +110,17 @@ function addHoldingPopup() {
 function validateForm(input) {
 	switch (input) {
 		case "symbol":
-			console.log("symbole has changed");
 			validateSymbol();
 			break;
 
 		case "amount":
-			console.log("amount has changed");
 			validateAmount();
 			break;
 
 		case "price":
-			console.log("price has changed");
 			validatePrice();
 			break;
 		case "date":
-			console.log("symqweqweqebole has changed");
 			validateDate();
 			break;
 	}

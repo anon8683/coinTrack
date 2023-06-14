@@ -458,7 +458,7 @@ footer {
 		display: flex;
 		justify-content: start;
 		padding: 0px;
-		width: auto;
+		width: 100%;
 	}
 
 	td {
